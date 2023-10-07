@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class OutputDeviceMB : MonoBehaviour
 {
 	
-	public static event Action<OutputDevice> onCreated;
+	public static event Action<OutputDevice> onCreate;
 
 	OutputDevice _outputDevice;
 	public OutputDevice outputDevice
@@ -14,7 +14,7 @@ public abstract class OutputDeviceMB : MonoBehaviour
 		protected set
 		{
 			_outputDevice = value;
-			onCreated?.Invoke(_outputDevice);
+			onCreate?.Invoke(_outputDevice);
 		}
 	}
 	
@@ -23,12 +23,13 @@ public abstract class OutputDeviceMB : MonoBehaviour
 
 	[SerializeField] protected InputDeviceMB inputDeviceMB;   
 
+	
 	void Awake()
 	{
 		if (inputDeviceMB == null)
 			return;
 
-		InputDeviceMB.onCreated += (InputDevice inputDevice) =>
+		InputDeviceMB.onCreate += (InputDevice inputDevice) =>
 		{
 			if (outputDevice == null)
 				return;
@@ -39,15 +40,29 @@ public abstract class OutputDeviceMB : MonoBehaviour
 			}
 		};
 
-		onCreated += (OutputDevice output) =>
+		onCreate += (OutputDevice output) =>
 		{
 			InputDevice input = inputDeviceMB.inputDevice;
-			if (input == null)
-				return;
+			//if (input == null)
+				//return;
 			if (output == outputDevice)
 			{
+				Debug.Log(input);
 				outputDevice.SetInputDevice(input);
 			}
 		};
-	}	
+	}
+	
+
+	/*
+	void Awake()
+	{
+		if (inputDeviceMB == null)
+			return;
+		InputDevice input = inputDeviceMB.inputDevice;
+		outputDevice.SetInputDevice(input);
+		Debug.Log("here");
+		Debug.Log(input);
+	}
+	*/
 }

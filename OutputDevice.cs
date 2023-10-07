@@ -3,19 +3,12 @@ using System;
 
 public abstract class OutputDevice
 {
-	/*
-	public OutputDevice()
-	{
-		OnCreated?.Invoke(this);
-	}
-
-	public static event Action<OutputDevice> OnCreated;
-	*/
-
-	protected InputDevice inputDevice;
+	public InputDevice connectedInputDevice { get; protected set; }
 
 	protected virtual void Activate() { }
 	protected virtual void Deactivate() { }
+
+	protected virtual void BehaviourIfNullInput() { Activate(); }
 
 	void Register (InputDevice inputDevice)
 	{
@@ -31,10 +24,16 @@ public abstract class OutputDevice
 
 	public void SetInputDevice(InputDevice newInputDevice)
 	{
-		if (inputDevice != null)
-			Deregister(inputDevice);   // Detach previous input device
+		if (connectedInputDevice != null)
+			Deregister(connectedInputDevice);   // Detach previous input device
+		//else
+			//BehaviourIfNullInput();
 
-		inputDevice = newInputDevice;
-		Register(inputDevice);
+		connectedInputDevice = newInputDevice;
+		
+		if (connectedInputDevice != null)
+			Register(connectedInputDevice);
+		else
+			BehaviourIfNullInput();
 	}
 }
