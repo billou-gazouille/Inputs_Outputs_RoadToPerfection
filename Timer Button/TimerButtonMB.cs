@@ -5,17 +5,19 @@ using UnityEngine.InputSystem;
 
 public class TimerButtonMB : InputDeviceMB 
 {
-	public TimerButton timerButton { get; private set; }
+	//public TimerButton timerButton { get; private set; }
+	public TimerButton timerButton { get; private set; } = new TimerButton();
+
+	public override InputDevice inpDev => timerButton;
+
 	[SerializeField] float delay;
 
-	void Awake()
+	//void Awake()
+	void Start()
 	{
-		inputDevice = new TimerButton();
-		//new TimerButton();
-		//new TimerButton();
-		//Debug.Log("OKAY");
-		timerButton = (TimerButton)inputDevice;
+		//inputDevice = timerButton;
 		timerButton.Init(delay);
+		//timerButton.Init();
 	}
 
 

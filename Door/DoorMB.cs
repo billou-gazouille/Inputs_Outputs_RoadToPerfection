@@ -1,23 +1,19 @@
 
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class DoorMB : OutputDeviceMB
 {
-	public Door door { get; private set; }
+	public Door door { get; private set; } = new Door();
 
-	void Start()
+	public override OutputDevice outDev => door;
+
+	//void Start()
+	void Awake()
 	{
-		outputDevice = new Door();
-		door = (Door)outputDevice;
 		door.SetClosedRotation(transform.rotation);
 		door.onChangeState += (newRotation) => transform.rotation = newRotation;
 	}
-
-	/*
-	void Awake()
-	{
-		base.Awake();
-		initRotation = transform.rotation;
-	}
-	*/
+	
+	//void Update() => Debug.Log(door.IsActive);
 }

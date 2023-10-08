@@ -7,7 +7,6 @@ public class Door : OutputDevice
 	public Quaternion OpenedRotation { get; private set; }
 	public Quaternion CurrentRotation { get; private set; }
 
-	public bool IsOpen { get; private set; } = false;
 	public event Action<Quaternion> onChangeState;
 
 	public void SetClosedRotation(Quaternion closedRot)
@@ -22,14 +21,12 @@ public class Door : OutputDevice
 
 	void Open()
 	{
-		IsOpen = true;
 		CurrentRotation = OpenedRotation;
 		onChangeState?.Invoke(CurrentRotation);
 	}
 
 	void Close()
 	{
-		IsOpen = false;
 		CurrentRotation = ClosedRotation;
 		onChangeState?.Invoke(CurrentRotation);
 	}

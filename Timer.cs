@@ -4,14 +4,28 @@ using UnityEngine;
 
 public class Timer
 {
+    /*
+	public Timer()
+	{
+        CommonConstructor();
+	}
+    */
 
-    public Timer(float duration)
+	public Timer(float duration)
     {
-        if (timersTicker == null)
-            Debug.LogError("There is currently no existing timers-ticker object.");
-        onCreate?.Invoke(this);
-        Set(duration);
+        CommonConstructor();
+		Set(duration);
     }
+
+    void CommonConstructor()
+    {
+		if (timersTicker == null)
+		{
+			Debug.LogError("Cannot create a Timer because no timers-ticker object was found!.");
+			return;
+		}
+		onCreate?.Invoke(this);
+	}
 
     public static ITimersTicker timersTicker { get; private set; }
 
@@ -47,15 +61,10 @@ public class Timer
         IsRunning = false;
     }
 
-    public void Start()
-    {
-        IsRunning = true;
-    }
+    public void Start() => IsRunning = true;
 
-    public void Pause()
-    {
-        IsRunning = false;
-    }
+    public void Pause() => IsRunning = false;
+
 
     public void Reset()
     {

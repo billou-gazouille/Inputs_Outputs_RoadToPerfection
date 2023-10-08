@@ -9,12 +9,15 @@ public class AndGateMB : InputDeviceMB
 
     [SerializeField] List<InputDeviceMB> inputDeviceMBs;
 
-	void Start()
+	public override InputDevice inpDev => andGate.input;
+
+	//void Start()
+	void Awake()
 	{
-		List<InputDevice> inputs = inputDeviceMBs.Select(inputMB => inputMB.inputDevice)
-			.ToList();
+		//List<InputDevice> inputs = inputDeviceMBs.Select(inputMB => inputMB.inputDevice).ToList();
+		List<InputDevice> inputs = inputDeviceMBs.Select(inputMB => inputMB.inpDev).ToList();
 		andGate.SetInputs(inputs);
 		andGate.Init();
-		inputDevice = andGate.input;
+		//inputDevice = andGate.input;
 	}	
 }

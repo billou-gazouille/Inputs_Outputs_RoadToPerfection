@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Elevator : OutputDevice
@@ -17,14 +15,10 @@ public class Elevator : OutputDevice
     public Vector3 EndPosition { get; }
 
     public Vector3 CurrentPosition { get; private set; }
-	public bool IsActive { get; private set; } = false;
     public Vector3 StartEndDir => (EndPosition - StartPosition).normalized;
 
-	public Vector3 MoveDirection => StartEndDir * (connectedInputDevice.IsTriggered ? 1f : -1f);
+	public Vector3 MoveDirection => StartEndDir * (IsActive ? 1f : -1f);
 	public float Speed { get; set; }
-
-	protected override void Activate() => IsActive = true;
-	protected override void Deactivate() => IsActive = false;
 
 
 	public void UpdatePosition()

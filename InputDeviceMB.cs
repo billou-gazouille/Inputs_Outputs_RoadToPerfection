@@ -6,6 +6,8 @@ public abstract class InputDeviceMB : MonoBehaviour
 {
 	public static event Action<InputDevice> onCreate;
 
+	/*
+
 	protected InputDevice _inputDevice;
 	public virtual InputDevice inputDevice
 	{ 
@@ -16,6 +18,8 @@ public abstract class InputDeviceMB : MonoBehaviour
 			onCreate?.Invoke(_inputDevice);
 		} 
 	}
+	*/
 
 	//public static void Test(InputDevice input) => onCreated?.Invoke(input);
+	public abstract InputDevice inpDev { get; }
 }

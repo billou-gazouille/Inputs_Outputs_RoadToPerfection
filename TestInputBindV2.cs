@@ -16,8 +16,10 @@ public class TestInputBindV2 : MonoBehaviour
 
 	void ChangeOutput(bool isOutputMB1)
 	{
-		(isOutputMB1 ? outputMB1 : outputMB2).outputDevice.SetInputDevice(inputMB.inputDevice);
-		(isOutputMB1 ? outputMB2 : outputMB1).outputDevice.SetInputDevice(null);
+		//(isOutputMB1 ? outputMB1 : outputMB2).outputDevice.SetInputDevice(inputMB.inputDevice);
+		(isOutputMB1 ? outputMB1 : outputMB2).outDev.SetInputDevice(inputMB.inpDev);
+		//(isOutputMB1 ? outputMB2 : outputMB1).outputDevice.SetInputDevice(null);
+		(isOutputMB1 ? outputMB2 : outputMB1).outDev.SetInputDevice(null);
 	}
 
 

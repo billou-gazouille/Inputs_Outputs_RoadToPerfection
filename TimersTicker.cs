@@ -8,13 +8,14 @@ public class TimersTicker : MonoBehaviour, ITimersTicker
 
     private void Awake()
     {
+        //Debug.Log("awake timers ticker");
         Timer.SetTimersTicker(this);
         Timer.onCreate += (timer) => AddTimer(timer);
     }
 
     public void AddTimer(Timer timer)
     {
-        Debug.Log("adding a timer", this);
+        //Debug.Log("adding a timer", this);
         timers.Add(timer);
     }
 

@@ -8,18 +8,36 @@ public abstract class OutputDevice
 	protected virtual void Activate() { }
 	protected virtual void Deactivate() { }
 
-	protected virtual void BehaviourIfNullInput() { Activate(); }
+	private void PrivateActivate()
+	{
+		Activate();
+		IsActive = true;
+	}
+	private void PrivateDeactivate()
+	{
+		Deactivate();
+		IsActive = false;
+	}
+
+	public bool IsActive { get; private set; } = false;
+
+	//protected virtual void BehaviourIfNullInput() { Activate(); }
+	protected virtual void BehaviourIfNullInput() { PrivateActivate(); }
 
 	void Register (InputDevice inputDevice)
 	{
-		inputDevice.onTriggered += Activate;
-		inputDevice.onUntriggered += Deactivate;
+		//inputDevice.onTriggered += Activate;
+		//inputDevice.onUntriggered += Deactivate;
+		inputDevice.onTriggered += PrivateActivate;
+		inputDevice.onUntriggered += PrivateDeactivate;
 	}
 
 	void Deregister(InputDevice inputDevice)
 	{
-		inputDevice.onTriggered -= Activate;
-		inputDevice.onUntriggered -= Deactivate;
+		//inputDevice.onTriggered -= Activate;
+		//inputDevice.onUntriggered -= Deactivate;
+		inputDevice.onTriggered -= PrivateActivate;
+		inputDevice.onUntriggered -= PrivateDeactivate;
 	}
 
 	public void SetInputDevice(InputDevice newInputDevice)
