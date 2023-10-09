@@ -6,7 +6,7 @@ public class DoorMB : OutputDeviceMB
 {
 	public Door door { get; private set; } = new Door();
 
-	public override OutputDevice outDev => door;
+	public override OutputDevice outputDevice => door;
 
 	//void Start()
 	void Awake()

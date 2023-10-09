@@ -6,5 +6,5 @@ public class TestOutputMB : OutputDeviceMB
 {
     TestOutput testOutput = new TestOutput();
 
-	public override OutputDevice outDev => testOutput;
+	public override OutputDevice outputDevice => testOutput;
 }

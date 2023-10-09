@@ -8,13 +8,13 @@ public class NotGateMB : InputDeviceMB
 
 	[SerializeField] InputDeviceMB sourceInputDeviceMB;
 
-	public override InputDevice inpDev => notGate.input;
+	public override InputDevice inputDevice => notGate.input;
 
 	//void Start()
 	void Awake()
 	{
 		//InputDevice input = sourceInputDeviceMB.inputDevice;
-		InputDevice input = sourceInputDeviceMB.inpDev;
+		InputDevice input = sourceInputDeviceMB.inputDevice;
 		notGate.SetSourceInput(input);
 		notGate.Init();
 	}

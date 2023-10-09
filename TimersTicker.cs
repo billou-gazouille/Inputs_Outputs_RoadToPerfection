@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class TimersTicker : MonoBehaviour, ITimersTicker
 {
     List<Timer> timers = new List<Timer>();
 
+    public static event Action onCreated;
+
     private void Awake()
     {
         //Debug.Log("awake timers ticker");
@@ -13,7 +16,12 @@ public class TimersTicker : MonoBehaviour, ITimersTicker
         Timer.onCreate += (timer) => AddTimer(timer);
     }
 
-    public void AddTimer(Timer timer)
+	void Start()
+	{
+        onCreated?.Invoke();
+	}
+
+	public void AddTimer(Timer timer)
     {
         //Debug.Log("adding a timer", this);
         timers.Add(timer);

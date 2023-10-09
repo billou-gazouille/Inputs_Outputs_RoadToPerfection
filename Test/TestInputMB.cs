@@ -6,7 +6,7 @@ public class TestInputMB : InputDeviceMB
 {
     TestInput testInput = new TestInput();
 
-	public override InputDevice inpDev => testInput;
+	public override InputDevice inputDevice => testInput;
 
 	void Update()
     {

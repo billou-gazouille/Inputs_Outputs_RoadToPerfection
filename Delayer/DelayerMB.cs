@@ -8,14 +8,14 @@ public class DelayerMB : InputDeviceMB
 	[SerializeField] InputDeviceMB sourceInputDeviceMB;
 	[SerializeField] float delay;
 
-	public override InputDevice inpDev => delayer.input;
+	public override InputDevice inputDevice => delayer.input;
 
 	void Start()
 	{
 		if (sourceInputDeviceMB == null)
 			return;
 		//InputDevice input = sourceInputDeviceMB.inputDevice;
-		InputDevice input = sourceInputDeviceMB.inpDev;
+		InputDevice input = sourceInputDeviceMB.inputDevice;
 		//Debug.Log($"sourceInputDeviceMB: {sourceInputDeviceMB.name}", this);
 		//Debug.Log($"sourceInputDeviceMB.inputDevice null?: {input == null}", this);
 		delayer.SetSourceInput(input);

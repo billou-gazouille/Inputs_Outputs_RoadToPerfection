@@ -5,7 +5,7 @@ public class ElevatorMB : OutputDeviceMB
 {
 	public Elevator elevator { get; private set; }
 
-	public override OutputDevice outDev => elevator;
+	public override OutputDevice outputDevice => elevator;
 
 	[SerializeField] float speed;
 	[SerializeField] Transform startPosTf;

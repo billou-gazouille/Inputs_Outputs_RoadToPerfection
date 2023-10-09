@@ -21,21 +21,16 @@ public abstract class OutputDevice
 
 	public bool IsActive { get; private set; } = false;
 
-	//protected virtual void BehaviourIfNullInput() { Activate(); }
 	protected virtual void BehaviourIfNullInput() { PrivateActivate(); }
 
 	void Register (InputDevice inputDevice)
 	{
-		//inputDevice.onTriggered += Activate;
-		//inputDevice.onUntriggered += Deactivate;
 		inputDevice.onTriggered += PrivateActivate;
 		inputDevice.onUntriggered += PrivateDeactivate;
 	}
 
 	void Deregister(InputDevice inputDevice)
 	{
-		//inputDevice.onTriggered -= Activate;
-		//inputDevice.onUntriggered -= Deactivate;
 		inputDevice.onTriggered -= PrivateActivate;
 		inputDevice.onUntriggered -= PrivateDeactivate;
 	}
@@ -44,8 +39,6 @@ public abstract class OutputDevice
 	{
 		if (connectedInputDevice != null)
 			Deregister(connectedInputDevice);   // Detach previous input device
-		//else
-			//BehaviourIfNullInput();
 
 		connectedInputDevice = newInputDevice;
 		
@@ -54,4 +47,14 @@ public abstract class OutputDevice
 		else
 			BehaviourIfNullInput();
 	}
+
+
+	/*
+	//public AnimationLoop
+	//protected virtual void AnimateIteration() { }
+	Action _AnimateIteration;
+	public virtual Action AnimationIteration { get; } = null;
+	public bool HasAnimation => AnimationIteration != null;
+	public void StartAnimation() => Timer.Loop(0.05f, () => AnimationIteration());
+	*/
 }

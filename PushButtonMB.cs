@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PushButtonMB : InputDeviceMB
 {
 	PushButton pushButton = new PushButton();
-	public override InputDevice inpDev => pushButton;
+	public override InputDevice inputDevice => pushButton;
 
 	void Start()
 	{
@@ -15,9 +15,9 @@ public class PushButtonMB : InputDeviceMB
     {
 		if (Keyboard.current.eKey.isPressed)
 			//inputDevice.Trigger();
-			inpDev.Trigger();
+			inputDevice.Trigger();
 		if (Keyboard.current.fKey.isPressed)
 			//inputDevice.Untrigger();
-			inpDev.Untrigger();
+			inputDevice.Untrigger();
 	}
 }

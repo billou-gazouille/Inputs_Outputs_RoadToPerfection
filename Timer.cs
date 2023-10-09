@@ -79,12 +79,23 @@ public class Timer
         timer.Start();
     }
 
-    public static void Loop(float delay, Action action)
+    public static void Loop(Action action, float delay, bool immediate=false)
     {
-        WaitThenDo(delay, () =>
+        if (immediate)
         {
-            action.Invoke();
-            Loop(delay, action);
-        });
+			action.Invoke();
+			WaitThenDo(delay, () =>
+			{
+				Loop(action, delay, true);
+			});
+		}
+        else
+        {
+			WaitThenDo(delay, () =>
+			{
+				action.Invoke();
+				Loop(action, delay, false);
+			});
+        }       
     }
 }

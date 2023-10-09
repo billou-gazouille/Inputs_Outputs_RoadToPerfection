@@ -4,20 +4,15 @@ using UnityEngine;
 
 public abstract class OutputDeviceMB : MonoBehaviour
 {
-	
-	public static event Action<OutputDevice> onCreate;
-
-
-	public abstract OutputDevice outDev { get; }
-	
+	public abstract OutputDevice outputDevice { get; }
 
 	[SerializeField] protected InputDeviceMB inputDeviceMB;
 
-
 	void Start()
 	{
-		if (inputDeviceMB == null)
-			return;
-		outDev.SetInputDevice(inputDeviceMB.inpDev);
+		if (inputDeviceMB != null)
+			outputDevice.SetInputDevice(inputDeviceMB.inputDevice);
+		else
+			outputDevice.SetInputDevice(null);
 	}
 }

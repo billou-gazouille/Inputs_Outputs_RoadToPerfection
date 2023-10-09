@@ -20,11 +20,13 @@ public class Elevator : OutputDevice
 	public Vector3 MoveDirection => StartEndDir * (IsActive ? 1f : -1f);
 	public float Speed { get; set; }
 
+	//protected override void BehaviourIfNullInput() => Deactivate();
+
 
 	public void UpdatePosition()
     {
-		if (connectedInputDevice == null)
-			return;
+		//if (connectedInputDevice == null)
+			//return;
         Vector3 translateStep = MoveDirection * Time.deltaTime * Speed;
 		CurrentPosition += translateStep;
         CheckOutOfBounds();

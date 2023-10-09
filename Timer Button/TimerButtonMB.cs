@@ -8,7 +8,7 @@ public class TimerButtonMB : InputDeviceMB
 	//public TimerButton timerButton { get; private set; }
 	public TimerButton timerButton { get; private set; } = new TimerButton();
 
-	public override InputDevice inpDev => timerButton;
+	public override InputDevice inputDevice => timerButton;
 
 	[SerializeField] float delay;
 

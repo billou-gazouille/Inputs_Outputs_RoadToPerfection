@@ -20,7 +20,7 @@ public class TestInputBind : MonoBehaviour
 			timerButton = new TimerButton();
 			timerButton.Init(4f);
 			//outputMB.outputDevice.SetInputDevice(timerButton);
-			outputMB.outDev.SetInputDevice(timerButton);
+			outputMB.outputDevice.SetInputDevice(timerButton);
 			Debug.Log("Set input to a timerButton!", this);
 			currentInput = timerButton;
 		}
@@ -29,10 +29,10 @@ public class TestInputBind : MonoBehaviour
 		{
 			//outputMB.outputDevice.SetInputDevice(inputMB.inputDevice);
 			//outputMB.outputDevice.SetInputDevice(inputMB.inpDev);
-			outputMB.outDev.SetInputDevice(inputMB.inpDev);
+			outputMB.outputDevice.SetInputDevice(inputMB.inputDevice);
 			Debug.Log($"Set input to {inputMB.name}!", this);
 			//currentInput = inputMB.inputDevice;
-			currentInput = inputMB.inpDev;
+			currentInput = inputMB.inputDevice;
 		}
 
 		if (Keyboard.current.pKey.wasPressedThisFrame)

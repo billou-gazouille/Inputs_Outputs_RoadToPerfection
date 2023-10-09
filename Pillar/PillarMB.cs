@@ -5,7 +5,7 @@ public class PillarMB : OutputDeviceMB
 {
     Pillar pillar = new Pillar();
 
-	public override OutputDevice outDev => pillar;
+	public override OutputDevice outputDevice => pillar;
 
     void Update()
     {

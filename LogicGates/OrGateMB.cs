@@ -9,12 +9,12 @@ public class OrGateMB : InputDeviceMB
 
 	[SerializeField] List<InputDeviceMB> inputDeviceMBs;
 
-	public override InputDevice inpDev => orGate.input;
+	public override InputDevice inputDevice => orGate.input;
 
 	//void Start()
 	void Awake()
 	{
-		List<InputDevice> inputs = inputDeviceMBs.Select(inputMB => inputMB.inpDev).ToList();
+		List<InputDevice> inputs = inputDeviceMBs.Select(inputMB => inputMB.inputDevice).ToList();
 		orGate.SetSourceInputs(inputs);
 		orGate.Init();
 	}
