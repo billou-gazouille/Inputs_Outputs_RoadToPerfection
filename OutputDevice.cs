@@ -21,7 +21,8 @@ public abstract class OutputDevice
 
 	public bool IsActive { get; private set; } = false;
 
-	protected virtual void BehaviourIfNullInput() { PrivateActivate(); }
+	protected virtual void BehaviourIfNullInput() => PrivateActivate();
+	protected virtual void BehaviourIfInput() => PrivateDeactivate();
 
 	void Register (InputDevice inputDevice)
 	{
@@ -43,7 +44,10 @@ public abstract class OutputDevice
 		connectedInputDevice = newInputDevice;
 		
 		if (connectedInputDevice != null)
+		{
 			Register(connectedInputDevice);
+			BehaviourIfInput();
+		}
 		else
 			BehaviourIfNullInput();
 	}

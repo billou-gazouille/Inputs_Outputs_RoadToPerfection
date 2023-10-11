@@ -18,9 +18,10 @@ public class TriggerZoneInputMB : InputDeviceMB
 
 		boxCollider = gameObject.AddComponent<BoxCollider>();
 		boxCollider.isTrigger = true;
-		boxCollider.size = triggerZoneInput.Size;
+		var s = triggerZoneInput.Size;
+		boxCollider.size = s != Vector3.zero ? s : Vector3.one * 2f;
 		//boxCollider.center = triggerZoneInput.CenterTransform.position;
-		boxCollider.center = Vector3.zero;	// it's relative to transform
+		boxCollider.center = Vector3.zero;  // it's relative to transform
 	}
 
 	void OnTriggerEnter(Collider other)

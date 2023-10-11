@@ -12,7 +12,18 @@ public abstract class OutputDeviceMB : MonoBehaviour
 	{
 		if (inputDeviceMB != null)
 			outputDevice.SetInputDevice(inputDeviceMB.inputDevice);
+		/*
 		else
 			outputDevice.SetInputDevice(null);
+		*/
+
+		
+		else
+		{
+			if (outputDevice.connectedInputDevice == null)
+				outputDevice.SetInputDevice(null);
+			// if connectedInputDevice is not null, we want to leave it as such
+		}
+		
 	}
 }

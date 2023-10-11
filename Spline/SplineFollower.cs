@@ -6,7 +6,7 @@ using UnityEngine;
 public class SplineFollower : MonoBehaviour
 {
     [SerializeField] public Spline3DMonoBehaviour splineMB;
-    [SerializeField] float speed = 1f;
+    [SerializeField] public float speed = 1f;
     public event Action onReachedEnd;
     public event Action<int> onReachedControlPoint;
     float prev_mod = 0.99f;

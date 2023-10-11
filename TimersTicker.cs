@@ -9,8 +9,14 @@ public class TimersTicker : MonoBehaviour, ITimersTicker
 
     public static event Action onCreated;
 
+    public static TimersTicker Instance { get; private set; } = null;
+
     private void Awake()
     {
+        if (Instance != null)
+            Destroy(this);
+
+		Instance = this;
         //Debug.Log("awake timers ticker");
         Timer.SetTimersTicker(this);
         Timer.onCreate += (timer) => AddTimer(timer);
