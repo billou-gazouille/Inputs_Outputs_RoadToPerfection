@@ -1,5 +1,6 @@
 
 using System;
+using UnityEngine;
 
 public abstract class OutputDevice
 {
@@ -7,6 +8,13 @@ public abstract class OutputDevice
 
 	protected virtual void Activate() { }
 	protected virtual void Deactivate() { }
+
+	//public event Action<InputDevice> onRegisteredInput;
+	public static event Action<OutputDevice, InputDevice> onRegisteredInput;
+	//public event Action<InputDevice> onDeregisteredInput;
+	public static event Action<OutputDevice, InputDevice> onDeregisteredInput;
+
+	public Vector3? WorldPosition { get; set; } = null;
 
 	private void PrivateActivate()
 	{
@@ -22,18 +30,28 @@ public abstract class OutputDevice
 	public bool IsActive { get; private set; } = false;
 
 	protected virtual void BehaviourIfNullInput() => PrivateActivate();
-	protected virtual void BehaviourIfInput() => PrivateDeactivate();
+	protected virtual void BehaviourIfInput()
+	{
+		if (connectedInputDevice.IsTriggered)
+			PrivateActivate();
+		else
+			PrivateDeactivate();
+	}
 
 	void Register (InputDevice inputDevice)
 	{
 		inputDevice.onTriggered += PrivateActivate;
 		inputDevice.onUntriggered += PrivateDeactivate;
+		//onRegisteredInput?.Invoke(inputDevice);
+		onRegisteredInput?.Invoke(this, inputDevice);
 	}
 
 	void Deregister(InputDevice inputDevice)
 	{
 		inputDevice.onTriggered -= PrivateActivate;
 		inputDevice.onUntriggered -= PrivateDeactivate;
+		//onDeregisteredInput?.Invoke(inputDevice);
+		onDeregisteredInput?.Invoke(this, inputDevice);
 	}
 
 	public void SetInputDevice(InputDevice newInputDevice)

@@ -14,8 +14,18 @@ public class NotGateMB : InputDeviceMB
 	void Awake()
 	{
 		//InputDevice input = sourceInputDeviceMB.inputDevice;
+		//InputDevice input = sourceInputDeviceMB.inputDevice;
+		//notGate.SetSourceInput(input);
+		//notGate.Init();
+	}
+
+	void Start()
+	{
 		InputDevice input = sourceInputDeviceMB.inputDevice;
 		notGate.SetSourceInput(input);
 		notGate.Init();
+		sourceInputDeviceMB.inputDevice.WorldPosition = sourceInputDeviceMB.transform.position;
+		notGate.output.WorldPosition = transform.position;
+		notGate.output.SetInputDevice(notGate.SourceInput);
 	}
 }

@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class NotGate
 {
+	class NotGateOutput : OutputDevice { }
 	class NotGateInput : InputDevice { }
 
-	public InputDevice SourceInput { get; private set; }
+	public InputDevice SourceInput { get; private set; }   // a button for example
+	public OutputDevice output { get; private set; } = new NotGateOutput();	  // intermediate
 	public InputDevice input { get; private set; } = new NotGateInput();  // NOT the source input !!
 
 	public void SetSourceInput(InputDevice input)

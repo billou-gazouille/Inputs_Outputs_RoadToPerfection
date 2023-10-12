@@ -27,8 +27,8 @@ public class ToggleOutput : OutputDevice
 			SetOutput(false);
 		else
 			SetOutput(true);
-		Debug.Log(output1.connectedInputDevice);
-		Debug.Log(output2.connectedInputDevice);
+		//Debug.Log(output1.connectedInputDevice);
+		//Debug.Log(output2.connectedInputDevice);
 	}
 
 	void SetOutput(bool isOutput1)

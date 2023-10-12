@@ -21,5 +21,8 @@ public class DelayerMB : InputDeviceMB
 		delayer.SetSourceInput(input);
 		delayer.Init(delay);
 		//inputDevice = delayer.input;
+		sourceInputDeviceMB.inputDevice.WorldPosition = sourceInputDeviceMB.transform.position;
+		delayer.output.WorldPosition = transform.position;
+		delayer.output.SetInputDevice(delayer.SourceInput);
 	}
 }

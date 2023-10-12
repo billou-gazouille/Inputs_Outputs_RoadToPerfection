@@ -6,17 +6,31 @@ public abstract class OutputDeviceMB : MonoBehaviour
 {
 	public abstract OutputDevice outputDevice { get; }
 
-	[SerializeField] protected InputDeviceMB inputDeviceMB;
+	[SerializeField] protected InputDeviceMB connectedInputDeviceMB;
 
 	void Start()
 	{
-		if (inputDeviceMB != null)
-			outputDevice.SetInputDevice(inputDeviceMB.inputDevice);
+		outputDevice.WorldPosition = transform.position;
+
+
+		if (connectedInputDeviceMB != null)
+		{
+			if (connectedInputDeviceMB.inputDevice != null)
+			{
+				//connectedInputDeviceMB.inputDevice.WorldPosition = transform.position;
+				connectedInputDeviceMB.inputDevice.WorldPosition = connectedInputDeviceMB.transform.position;
+				//Debug.Log(connectedInputDeviceMB.inputDevice.WorldPosition);
+			}
+
+			outputDevice.SetInputDevice(connectedInputDeviceMB.inputDevice);
+
+			//if (inputDeviceMB.inputDevice != null)
+				//inputDeviceMB.inputDevice.WorldPosition = transform.position;
+		}
 		/*
 		else
 			outputDevice.SetInputDevice(null);
 		*/
-
 		
 		else
 		{
@@ -24,6 +38,5 @@ public abstract class OutputDeviceMB : MonoBehaviour
 				outputDevice.SetInputDevice(null);
 			// if connectedInputDevice is not null, we want to leave it as such
 		}
-		
 	}
 }
