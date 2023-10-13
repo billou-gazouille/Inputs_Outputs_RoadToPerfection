@@ -1,24 +1,23 @@
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class TestInputMB : InputDeviceMB
 {
     TestInput testInput = new TestInput();
 
+	[SerializeField] bool triggerState = false;
 	public override InputDevice inputDevice => testInput;
 
-	void Update()
-    {
-        if (Keyboard.current.tKey.wasPressedThisFrame)
+	void OnValidate()
+	{
+		if (triggerState && !testInput.IsTriggered)
 		{
-			Debug.Log("Pressed t");
-            testInput.Trigger();
+			Debug.Log($"TestInput '{name}': triggerState ON", this);
+			testInput.Trigger();
 		}
-
-		else if (Keyboard.current.uKey.wasPressedThisFrame)
+		else if (!triggerState && testInput.IsTriggered)
 		{
-			Debug.Log("Pressed u");
+			Debug.Log($"TestInput '{name}': triggerState OFF", this);
 			testInput.Untrigger();
 		}
 	}

@@ -36,7 +36,10 @@ public class ButtonPush : MonoBehaviour
 		MouseRaycaster.Instance.onColliderHit += (Ray ray, RaycastHit hitInfo) =>
 		{
 			if (hitInfo.collider == buttonCollider)
+			{
+				//Debug.Log($"Clicked on button: {name}");
 				timerButton.Press();
+			}
 		};
 	}
 }

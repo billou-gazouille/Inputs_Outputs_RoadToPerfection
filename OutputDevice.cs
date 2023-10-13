@@ -9,6 +9,9 @@ public abstract class OutputDevice
 	protected virtual void Activate() { }
 	protected virtual void Deactivate() { }
 
+	public static event Action<OutputDevice> onActivated;
+	public static event Action<OutputDevice> onDeactivated;
+
 	//public event Action<InputDevice> onRegisteredInput;
 	public static event Action<OutputDevice, InputDevice> onRegisteredInput;
 	//public event Action<InputDevice> onDeregisteredInput;
@@ -20,11 +23,13 @@ public abstract class OutputDevice
 	{
 		Activate();
 		IsActive = true;
+		onActivated?.Invoke(this);
 	}
 	private void PrivateDeactivate()
 	{
 		Deactivate();
 		IsActive = false;
+		onDeactivated?.Invoke(this);
 	}
 
 	public bool IsActive { get; private set; } = false;

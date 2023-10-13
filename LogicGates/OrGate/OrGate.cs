@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class OrGate
 {
-	class OrGateInput : InputDevice { }
+	public class OrGateInput : InputDevice { }
+	public class OrGateOutput : OutputDevice { }
 
 	public List<InputDevice> SourceInputs { get; private set; }
+
+	public List<OrGateOutput> outputs { get; private set; } = new List<OrGateOutput>();	 // intermediate
 
 	public InputDevice input { get; private set; } = new OrGateInput();
 
