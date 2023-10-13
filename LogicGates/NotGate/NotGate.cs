@@ -27,8 +27,8 @@ public class NotGate
 			input.Trigger();
 		};
 
-		//if (TestNot())
-			//input.Untrigger();
+		if (TestNot())
+			input.Trigger();
 	}
 
 	

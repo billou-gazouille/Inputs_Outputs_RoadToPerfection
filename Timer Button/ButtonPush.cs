@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ButtonPush : MonoBehaviour
+public class ButtonPush : MonoBehaviour, IInteractable
 {
     [SerializeField] TimerButtonMB timerButtonMB;
     TimerButton timerButton;
@@ -11,6 +11,9 @@ public class ButtonPush : MonoBehaviour
     [SerializeField] Transform buttonReleasedTf;
 
 	[SerializeField] Collider buttonCollider;
+
+	public void Interact() => timerButton.Press();
+	public Vector3 Position => buttonTf.position;
 
 
 	private void Start()
@@ -33,6 +36,7 @@ public class ButtonPush : MonoBehaviour
 		};
 
 
+		/*
 		MouseRaycaster.Instance.onColliderHit += (Ray ray, RaycastHit hitInfo) =>
 		{
 			if (hitInfo.collider == buttonCollider)
@@ -40,6 +44,18 @@ public class ButtonPush : MonoBehaviour
 				//Debug.Log($"Clicked on button: {name}");
 				timerButton.Press();
 			}
+		};
+		*/
+
+		PlayerInteraction.Instance.onInteract += (MonoBehaviour mb) =>
+		{
+			//Debug.Log("TimerButton interact!", this);
+			//Debug.Log($"{this} ; {mb}");
+			if (this != mb)
+				return;
+			//Debug.Log("Sweet!", this);
+			//timerButton.Press();
+			Interact();
 		};
 	}
 }
