@@ -1,8 +1,6 @@
 
-using UnityEngine;
 
-//public class IONot : SingleInputOutputDevice
-public class IONot : InputOutputDevice
+public class IONot : SingleInputOutputDevice
 {
 	protected override void OnSourceInputTriggered() => input.Untrigger();
 	protected override void OnSourceInputUntriggered() => input.Trigger();

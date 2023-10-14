@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class IOTestDeviceMB : InputOutputDeviceMB
+public class IOTestDeviceMB : SingleInputOutputDeviceMB
 {
 	IOTestDevice ioTestDevice = new IOTestDevice();
-	public override InputOutputDevice inputOutputDevice => ioTestDevice;
+	public override SingleInputOutputDevice singleIODevice => ioTestDevice;
 }
