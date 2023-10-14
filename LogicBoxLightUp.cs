@@ -15,6 +15,9 @@ public class LogicBoxLightUp : MonoBehaviour
 
 	void Start()
 	{
+		if (inputDeviceMB == null)
+			return;
+
 		//inputDevice = GetComponent<InputDeviceMB>().inputDevice;
 		inputDevice = inputDeviceMB.inputDevice;
 		rend = GetComponent<Renderer>();

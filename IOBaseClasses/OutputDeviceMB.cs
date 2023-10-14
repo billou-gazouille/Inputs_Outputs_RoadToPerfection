@@ -12,25 +12,13 @@ public abstract class OutputDeviceMB : MonoBehaviour
 	{
 		outputDevice.WorldPosition = transform.position;
 
-
 		if (connectedInputDeviceMB != null)
 		{
 			if (connectedInputDeviceMB.inputDevice != null)
-			{
-				//connectedInputDeviceMB.inputDevice.WorldPosition = transform.position;
 				connectedInputDeviceMB.inputDevice.WorldPosition = connectedInputDeviceMB.transform.position;
-				//Debug.Log(connectedInputDeviceMB.inputDevice.WorldPosition);
-			}
 
 			outputDevice.SetInputDevice(connectedInputDeviceMB.inputDevice);
-
-			//if (inputDeviceMB.inputDevice != null)
-				//inputDeviceMB.inputDevice.WorldPosition = transform.position;
 		}
-		/*
-		else
-			outputDevice.SetInputDevice(null);
-		*/
 		
 		else
 		{

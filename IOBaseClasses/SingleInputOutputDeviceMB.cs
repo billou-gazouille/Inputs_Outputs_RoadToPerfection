@@ -19,22 +19,5 @@ public abstract class SingleInputOutputDeviceMB : InputOutputDeviceMB
 		var output = new InputOutputDevice.IO_OutputDevice();
 		output.WorldPosition = transform.position;
 		output.SetInputDevice(srcInput);
-
-		//srcInput.onTriggered += inputOutputDevice
 	}
-
-	/*
-	void Start()
-	{
-		inputOutputDevice.SourceInput.onTriggered += () =>
-		{
-			input.Untrigger();
-		};
-
-		SourceInput.onUntriggered += () =>
-		{
-			input.Trigger();
-		};
-	}
-	*/
 }

@@ -1,25 +1,25 @@
 
-public class IOAnd : MultiInputOutputDevice
+public class IOOr : MultiInputOutputDevice
 {
 	protected override void OnSourceInputTriggered()
 	{
-		if (TestAnd())
+		if (!input.IsTriggered)
 			input.Trigger();
 	}
 
 	protected override void OnSourceInputUntriggered()
 	{
-		if (input.IsTriggered)
+		if (!TestOr())
 			input.Untrigger();
 	}
 
-	bool TestAnd()
+	bool TestOr()
 	{
 		foreach (var inp in SourceInputs)
 		{
-			if (!inp.IsTriggered)
-				return false;
+			if (inp.IsTriggered)
+				return true;
 		}
-		return true;
+		return false;
 	}
 }

@@ -12,9 +12,7 @@ public abstract class OutputDevice
 	public static event Action<OutputDevice> onActivated;
 	public static event Action<OutputDevice> onDeactivated;
 
-	//public event Action<InputDevice> onRegisteredInput;
 	public static event Action<OutputDevice, InputDevice> onRegisteredInput;
-	//public event Action<InputDevice> onDeregisteredInput;
 	public static event Action<OutputDevice, InputDevice> onDeregisteredInput;
 
 	public Vector3? WorldPosition { get; set; } = null;
@@ -47,7 +45,6 @@ public abstract class OutputDevice
 	{
 		inputDevice.onTriggered += PrivateActivate;
 		inputDevice.onUntriggered += PrivateDeactivate;
-		//onRegisteredInput?.Invoke(inputDevice);
 		onRegisteredInput?.Invoke(this, inputDevice);
 	}
 
@@ -55,7 +52,6 @@ public abstract class OutputDevice
 	{
 		inputDevice.onTriggered -= PrivateActivate;
 		inputDevice.onUntriggered -= PrivateDeactivate;
-		//onDeregisteredInput?.Invoke(inputDevice);
 		onDeregisteredInput?.Invoke(this, inputDevice);
 	}
 
@@ -74,14 +70,4 @@ public abstract class OutputDevice
 		else
 			BehaviourIfNullInput();
 	}
-
-
-	/*
-	//public AnimationLoop
-	//protected virtual void AnimateIteration() { }
-	Action _AnimateIteration;
-	public virtual Action AnimationIteration { get; } = null;
-	public bool HasAnimation => AnimationIteration != null;
-	public void StartAnimation() => Timer.Loop(0.05f, () => AnimationIteration());
-	*/
 }
