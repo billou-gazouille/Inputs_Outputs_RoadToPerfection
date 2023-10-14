@@ -10,14 +10,24 @@ public class InputOutputLineRenderer : MonoBehaviour
 	float lineWidth = 0.02f;	
 	float lineDashPeriod = 0.2f; // dash every ... distance unit
 
+	float animationSpeed = 0.5f;
+
 	Dictionary<OutputDevice, LineRenderer> ioLines = new Dictionary<OutputDevice, LineRenderer>();
 
 
 	void Awake()
 	{
-		OutputDevice.onActivated += HighlightIOLink;
+		OutputDevice.onActivated += (OutputDevice output) =>
+		{
+			if (output.connectedInputDevice != null)
+				HighlightIOLink(output);
+		};
 
-		OutputDevice.onDeactivated += UnhighlightIOLink;
+		OutputDevice.onDeactivated += (OutputDevice output) =>
+		{
+			if (output.connectedInputDevice != null)
+				UnhighlightIOLink(output);
+		};
 
 
 		OutputDevice.onRegisteredInput += (OutputDevice output, InputDevice input) =>
@@ -52,5 +62,21 @@ public class InputOutputLineRenderer : MonoBehaviour
 	{
 		LineRenderer lineRenderer = ioLines[output];
 		lineRenderer.material.DisableKeyword("_EMISSION");
+	}
+
+	void Update()
+	{
+		// animate active io lines:
+		foreach (var line in ioLines)
+		{
+			OutputDevice output = line.Key;
+			InputDevice input = output.connectedInputDevice;
+			LineRenderer lineRenderer = line.Value;
+			if (input.IsTriggered)
+			{
+				Vector2 step = Vector2.left * animationSpeed * Time.deltaTime / lineDashPeriod;
+				lineRenderer.material.mainTextureOffset += step;
+			}
+		}
 	}
 }
