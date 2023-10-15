@@ -1,15 +1,15 @@
 
 using UnityEngine;
 
-public class IODelayerMB : SingleInputOutputDeviceMB
+public class DelayerMB : SingleInputOutputDeviceMB
 {
-	IODelayer ioDelayer;
+	Delayer ioDelayer;
 	public override SingleInputOutputDevice singleIODevice => ioDelayer;
 
 	[SerializeField] float delay;
 
 	void Awake()
 	{
-		ioDelayer = new IODelayer(delay);
+		ioDelayer = new Delayer(delay);
 	}
 }

@@ -1,7 +1,7 @@
 
-public class IODelayer : SingleInputOutputDevice
+public class Delayer : SingleInputOutputDevice
 {
-	public IODelayer(float delay) => Delay = delay > 0 ? delay : 5f;
+	public Delayer(float delay) => Delay = delay > 0 ? delay : 5f;
 	public float Delay { get; private set; }
 
 	protected override void OnSourceInputTriggered()
