@@ -1,6 +1,6 @@
 
 
-public class IONot : SingleInputOutputDevice
+public class NotGate : SingleInputOutputDevice
 {
 	protected override void OnSourceInputTriggered() => input.Untrigger();
 	protected override void OnSourceInputUntriggered() => input.Trigger();

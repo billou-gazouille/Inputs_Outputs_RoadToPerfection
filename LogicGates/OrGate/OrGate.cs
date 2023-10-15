@@ -1,5 +1,5 @@
 
-public class IOOr : MultiInputOutputDevice
+public class OrGate : MultiInputOutputDevice
 {
 	protected override void OnSourceInputTriggered()
 	{

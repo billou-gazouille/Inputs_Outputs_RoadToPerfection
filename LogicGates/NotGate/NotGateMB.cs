@@ -1,8 +1,8 @@
 
 using UnityEngine;
 
-public class IONotMB : SingleInputOutputDeviceMB
+public class NotGateMB : SingleInputOutputDeviceMB
 {
-	IONot ioNot	= new IONot();
+	NotGate ioNot	= new NotGate();
 	public override SingleInputOutputDevice singleIODevice => ioNot;
 }

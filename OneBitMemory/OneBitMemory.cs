@@ -1,5 +1,5 @@
 
-public class IOOneBItMem : SingleInputOutputDevice
+public class OneBitMemory : SingleInputOutputDevice
 {
 	public bool State { get; private set; } = false;  // 1 bit
 
