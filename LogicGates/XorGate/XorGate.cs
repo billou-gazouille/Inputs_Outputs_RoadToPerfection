@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class IOXor : MultiInputOutputDevice
+public class XorGate : MultiInputOutputDevice
 {
 	protected override void OnSourceInputTriggered()
 	{

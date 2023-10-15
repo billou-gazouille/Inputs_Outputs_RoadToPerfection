@@ -1,5 +1,5 @@
 
-public class IOAnd : MultiInputOutputDevice
+public class AndGate : MultiInputOutputDevice
 {
 	protected override void OnSourceInputTriggered()
 	{
