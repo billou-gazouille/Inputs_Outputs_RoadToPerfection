@@ -2,8 +2,8 @@
 public abstract class SingleInputOutputDevice : InputOutputDevice
 {
 	public InputDevice SourceInput { get; protected set; }   // a button for example
-	//public OutputDevice output { get; } = new IO_OutputDevice();   // intermediate
-	public OutputDevice output { get; }   // intermediate
+	public OutputDevice output { get; } = new IO_OutputDevice();   // intermediate
+	//public OutputDevice output { get; }   // intermediate
 
 	public void SetupSourceInput(InputDevice srcInput)
 	{
@@ -12,4 +12,10 @@ public abstract class SingleInputOutputDevice : InputOutputDevice
 		SourceInput.onTriggered += OnSourceInputTriggered;
 		SourceInput.onUntriggered += OnSourceInputUntriggered;
 	}
+
+	//public void SetSourceInputDevice(InputDevice srcInput)
+	//{
+		//SourceInput = srcInput;
+		//output.SetInputDevice(SourceInput);
+	//}
 }

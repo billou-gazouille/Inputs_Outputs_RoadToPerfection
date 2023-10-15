@@ -9,5 +9,12 @@ public class NotGate : SingleInputOutputDevice
 	{
 		if (!SourceInput.IsTriggered)
 			input.Trigger();
+		/*
+		if (SourceInput.IsTriggered)
+			input.Untrigger();
+		else
+			input.Trigger();
+		*/
+		//input.Untrigger();
 	}
 }

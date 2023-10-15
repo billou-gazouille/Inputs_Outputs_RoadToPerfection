@@ -14,10 +14,13 @@ public abstract class OutputDeviceMB : MonoBehaviour
 
 		if (connectedInputDeviceMB != null)
 		{
+			/*
 			if (connectedInputDeviceMB.inputDevice != null)
 				connectedInputDeviceMB.inputDevice.WorldPosition = connectedInputDeviceMB.transform.position;
 
 			outputDevice.SetInputDevice(connectedInputDeviceMB.inputDevice);
+			*/
+			SetInputDeviceMB(connectedInputDeviceMB);
 		}
 		
 		else
@@ -26,5 +29,13 @@ public abstract class OutputDeviceMB : MonoBehaviour
 				outputDevice.SetInputDevice(null);
 			// if connectedInputDevice is not null, we want to leave it as such
 		}
+	}
+
+	public void SetInputDeviceMB(InputDeviceMB inputDeviceMB)
+	{
+		if (inputDeviceMB.inputDevice != null)
+			inputDeviceMB.inputDevice.WorldPosition = inputDeviceMB.transform.position;
+
+		outputDevice.SetInputDevice(inputDeviceMB.inputDevice);
 	}
 }

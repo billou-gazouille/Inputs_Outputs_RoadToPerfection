@@ -50,6 +50,13 @@ public class InputOutputLineRenderer : MonoBehaviour
 			//Vector2 vec = new Vector2(100f, 100f);
 			lr.material.SetTextureScale("_BaseMap", vec);
 		};
+
+		OutputDevice.onDeregisteredInput += (OutputDevice output, InputDevice input) =>
+		{
+			LineRenderer lr = ioLines[output];
+			Destroy(lr.gameObject);
+			ioLines.Remove(output);
+		};
 	}
 
 	void HighlightIOLink(OutputDevice output)

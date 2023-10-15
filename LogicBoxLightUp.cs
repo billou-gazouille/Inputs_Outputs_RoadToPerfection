@@ -1,44 +1,50 @@
 
 using UnityEngine;
 
-//[RequireComponent(typeof(InputDeviceMB))]
 [RequireComponent(typeof(Renderer))]
 
 public class LogicBoxLightUp : MonoBehaviour
 {
 	InputDevice inputDevice;
-	Renderer rend;
 
 	[SerializeField] InputDeviceMB inputDeviceMB;
 	[SerializeField] Color color;
 	[SerializeField] float intensity;
+
+	Renderer _rend;
+	Renderer Rend
+	{
+		get
+		{
+			if (_rend == null)
+				_rend = GetComponent<Renderer>();
+			return _rend;
+		}
+	}
+
+	void Awake()
+	{
+		Rend.material = new Material(Rend.material);
+		Rend.material.EnableKeyword("_EMISSION");
+		Rend.material.SetColor("_EmissionColor", color * intensity);
+		//LightOff();
+	}
 
 	void Start()
 	{
 		if (inputDeviceMB == null)
 			return;
 
-		//inputDevice = GetComponent<InputDeviceMB>().inputDevice;
 		inputDevice = inputDeviceMB.inputDevice;
-		rend = GetComponent<Renderer>();
-
 		inputDevice.onTriggered += LightOn;
 		inputDevice.onUntriggered += LightOff;
 
-		rend.material = new Material(rend.material);
-		rend.material.EnableKeyword("_EMISSION");
-		//rend.material.SetColor("_EmissionColor", Color.blue * 3f);
-		rend.material.SetColor("_EmissionColor", color * intensity);
-		LightOff();
+		if (inputDeviceMB.inputDevice.IsTriggered)
+			LightOn();
+		else
+			LightOff();
 	}
 
-	void LightOn()
-	{
-		//Debug.Log("noice");
-		rend.material.EnableKeyword("_EMISSION");
-	}
-	void LightOff()
-	{
-		rend.material.DisableKeyword("_EMISSION");
-	}
+	void LightOn() => Rend.material.EnableKeyword("_EMISSION");
+	void LightOff() => Rend.material.DisableKeyword("_EMISSION");
 }
