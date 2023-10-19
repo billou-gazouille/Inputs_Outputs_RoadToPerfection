@@ -32,7 +32,7 @@ public class InputOutputLineRenderer : MonoBehaviour
 
 		OutputDevice.onRegisteredInput += (OutputDevice output, InputDevice input) =>
 		{
-			
+			//Debug.Log("Creating new line...");
 			GameObject lineGO = new GameObject($"IO-line: {output} - {input}");
 			lineGO.transform.parent = transform;
 			LineRenderer lr = lineGO.AddComponent<LineRenderer>();

@@ -3,16 +3,8 @@ using UnityEngine;
 
 public class Elevator : OutputDevice
 {
-	public Elevator(Vector3 startPosition, Vector3 endPosition, float speed)
-	{
-		StartPosition = startPosition;
-		EndPosition = endPosition;
-		CurrentPosition = startPosition;
-		Speed = speed;
-	}
-
-    public Vector3 StartPosition {  get; }
-    public Vector3 EndPosition { get; }
+    public Vector3 StartPosition {  get; private set; }
+    public Vector3 EndPosition { get; private set; }
 
     public Vector3 CurrentPosition { get; private set; }
     public Vector3 StartEndDir => (EndPosition - StartPosition).normalized;
@@ -21,6 +13,14 @@ public class Elevator : OutputDevice
 	public float Speed { get; set; }
 
 	//protected override void BehaviourIfNullInput() => Deactivate();
+
+	public void Init(Vector3 startPosition, Vector3 endPosition, float speed)
+	{
+		StartPosition = startPosition;
+		EndPosition = endPosition;
+		CurrentPosition = startPosition;
+		Speed = speed;
+	}
 
 
 	public void UpdatePosition()

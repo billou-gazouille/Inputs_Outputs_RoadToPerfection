@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightBoxMB : OutputDeviceMB, ILightBox
 {
-	LightBox lighttt;
+	LightBox lighttt = new LightBox();
 
 	public override OutputDevice outputDevice => lighttt;
 
@@ -13,11 +13,9 @@ public class LightBoxMB : OutputDeviceMB, ILightBox
 	[SerializeField] Color color;
 	[SerializeField] float intensity;
 
-	//void Start()
-	void Awake()
+	public override void InitOutputDevice()
 	{
-		lighttt = new LightBox(this);
-
+		lighttt.Init(this);
 		rend = GetComponent<Renderer>();
 		rend.material = new Material(rend.material);
 		rend.material.EnableKeyword("_EMISSION");

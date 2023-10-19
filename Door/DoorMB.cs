@@ -7,8 +7,7 @@ public class DoorMB : OutputDeviceMB
 
 	public override OutputDevice outputDevice => door;
 
-	//void Start()
-	void Awake()
+	public override void InitOutputDevice()
 	{
 		door.SetClosedRotation(transform.rotation);
 		door.onChangeState += (newRotation) => transform.rotation = newRotation;

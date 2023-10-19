@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TriggerZoneInputMB : InputDeviceMB
 {
-	TriggerZoneInput triggerZoneInput;
+	TriggerZoneInput triggerZoneInput = new TriggerZoneInput();
 	public override InputDevice inputDevice => triggerZoneInput;
 
 	[SerializeField] Vector3 size;
@@ -12,10 +12,10 @@ public class TriggerZoneInputMB : InputDeviceMB
 
 	BoxCollider boxCollider;
 
-	void Awake()
+	public override void InitInputDevice()
 	{
-		triggerZoneInput = new TriggerZoneInput(transform, size);
-
+		//Debug.Log(this,this);
+		triggerZoneInput.Init(transform, size);
 		boxCollider = gameObject.AddComponent<BoxCollider>();
 		boxCollider.isTrigger = true;
 		var s = triggerZoneInput.Size;

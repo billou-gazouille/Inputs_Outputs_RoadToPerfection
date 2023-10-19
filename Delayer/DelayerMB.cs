@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class DelayerMB : SingleInputOutputDeviceMB
 {
-	Delayer delayer;
+	Delayer delayer = new Delayer();
 	public override SingleInputOutputDevice singleIODevice => delayer;
 
 	[SerializeField] float delay;
 
-	void Awake()
+	public override void InitSingleIODevice()
 	{
-		delayer = new Delayer(delay);
+		delayer.Init(delay);
 	}
 }

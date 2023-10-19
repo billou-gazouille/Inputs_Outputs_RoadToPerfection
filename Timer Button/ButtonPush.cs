@@ -46,16 +46,18 @@ public class ButtonPush : MonoBehaviour, IInteractable
 			}
 		};
 		*/
-
-		PlayerInteraction.Instance.onInteract += (MonoBehaviour mb) =>
+		if (PlayerInteraction.Instance != null)
 		{
-			//Debug.Log("TimerButton interact!", this);
-			//Debug.Log($"{this} ; {mb}");
-			if (this != mb)
-				return;
-			//Debug.Log("Sweet!", this);
-			//timerButton.Press();
-			Interact();
-		};
+			PlayerInteraction.Instance.onInteract += (MonoBehaviour mb) =>
+			{
+				//Debug.Log("TimerButton interact!", this);
+				//Debug.Log($"{this} ; {mb}");
+				if (this != mb)
+					return;
+				//Debug.Log("Sweet!", this);
+				//timerButton.Press();
+				Interact();
+			};
+		}
 	}
 }

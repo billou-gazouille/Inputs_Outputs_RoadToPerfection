@@ -6,12 +6,12 @@ public class ExplosionDeviceMB : OutputDeviceMB
 	[SerializeField] float power;
 	[SerializeField] float radius;
 
-	ExplosionDevice explosionDevice;
+	ExplosionDevice explosionDevice = new ExplosionDevice();
 	public override OutputDevice outputDevice => explosionDevice;
 
-	void Awake()
+	public override void InitOutputDevice()
 	{
 		IExplosion explosion = new RigidbodyExplosion(transform.position, power, radius);
-		explosionDevice = new ExplosionDevice(explosion);
+		explosionDevice.Init(explosion);
 	}
 }

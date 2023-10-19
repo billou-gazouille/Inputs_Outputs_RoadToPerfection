@@ -1,15 +1,6 @@
 
 public class SquareWaveInput : InputDevice
 {
-	public SquareWaveInput(float timePeriod, float dutyCycle)
-	{
-		TimePeriod = timePeriod;
-		DutyCycle = dutyCycle;
-		timeOn = TimePeriod * DutyCycle;
-		timeOff = TimePeriod * (1f-DutyCycle);
-		TimersTicker.onCreated += Start;
-	}
-
 	void Start()
 	{
 		Timer.Loop(() =>
@@ -28,4 +19,13 @@ public class SquareWaveInput : InputDevice
 
 	public float TimePeriod { get; private set; }
 	public float DutyCycle { get; private set; }
+
+	public void Init(float timePeriod, float dutyCycle)
+	{
+		TimePeriod = timePeriod;
+		DutyCycle = dutyCycle;
+		timeOn = TimePeriod * DutyCycle;
+		timeOff = TimePeriod * (1f - DutyCycle);
+		TimersTicker.onCreated += Start;
+	}
 }

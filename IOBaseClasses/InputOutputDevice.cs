@@ -9,5 +9,5 @@ public abstract class InputOutputDevice
 	protected abstract void OnSourceInputTriggered();
 	protected abstract void OnSourceInputUntriggered();
 
-	public virtual void Init() { }
+	public virtual void Initialise() { }
 }

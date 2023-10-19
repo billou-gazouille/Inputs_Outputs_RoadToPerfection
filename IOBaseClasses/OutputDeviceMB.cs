@@ -8,20 +8,25 @@ public abstract class OutputDeviceMB : MonoBehaviour
 
 	[SerializeField] protected InputDeviceMB connectedInputDeviceMB;
 
+	public virtual void InitOutputDevice() { }
+
+	// Can be elsewhere than is defined by transform :
+	[SerializeField] Transform outputTf;
+
+	void Awake()
+	{		
+		if (outputTf != null)
+			outputDevice.WorldPosition = outputTf.position;
+		else
+			outputDevice.WorldPosition = transform.position;
+		
+		InitOutputDevice();
+	}
+
 	void Start()
 	{
-		outputDevice.WorldPosition = transform.position;
-
 		if (connectedInputDeviceMB != null)
-		{
-			/*
-			if (connectedInputDeviceMB.inputDevice != null)
-				connectedInputDeviceMB.inputDevice.WorldPosition = connectedInputDeviceMB.transform.position;
-
-			outputDevice.SetInputDevice(connectedInputDeviceMB.inputDevice);
-			*/
 			SetInputDeviceMB(connectedInputDeviceMB);
-		}
 		
 		else
 		{
@@ -33,9 +38,6 @@ public abstract class OutputDeviceMB : MonoBehaviour
 
 	public void SetInputDeviceMB(InputDeviceMB inputDeviceMB)
 	{
-		if (inputDeviceMB.inputDevice != null)
-			inputDeviceMB.inputDevice.WorldPosition = inputDeviceMB.transform.position;
-
 		outputDevice.SetInputDevice(inputDeviceMB.inputDevice);
 	}
 }

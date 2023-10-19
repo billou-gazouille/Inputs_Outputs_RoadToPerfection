@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ElevatorMB : OutputDeviceMB
 {
-	public Elevator elevator { get; private set; }
+	public Elevator elevator { get; private set; } = new Elevator();
 
 	public override OutputDevice outputDevice => elevator;
 
@@ -11,10 +11,9 @@ public class ElevatorMB : OutputDeviceMB
 	[SerializeField] Transform startPosTf;
 	[SerializeField] Transform endPosTf;
 
-	//void Start()
-	void Awake()
+	public override void InitOutputDevice()
 	{
-		elevator = new Elevator(startPosTf.position, endPosTf.position, speed);
+		elevator.Init(startPosTf.position, endPosTf.position, speed);
 	}
 
 	void Update()

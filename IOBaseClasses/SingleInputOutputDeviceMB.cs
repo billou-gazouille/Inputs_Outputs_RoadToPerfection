@@ -8,16 +8,27 @@ public abstract class SingleInputOutputDeviceMB : InputOutputDeviceMB
 	
 	[SerializeField] InputDeviceMB sourceInputDeviceMB;
 
+	[SerializeField] Transform outputTf;
+
+	public virtual void InitSingleIODevice() { }
+
+	public sealed override void InitInputDevice()
+	{
+		if (outputTf != null)
+			singleIODevice.output.WorldPosition = outputTf.position;
+		else
+			singleIODevice.output.WorldPosition = transform.position;
+
+		InitSingleIODevice();
+	}
+
+
 	void Start()
 	{
 		if (sourceInputDeviceMB == null)
 			return;
 		InputDevice srcInput = sourceInputDeviceMB.inputDevice;
-		singleIODevice.SetupSourceInput(srcInput);
-		singleIODevice.Init();
-		sourceInputDeviceMB.inputDevice.WorldPosition = sourceInputDeviceMB.transform.position;
-		var output = new InputOutputDevice.IO_OutputDevice();
-		output.WorldPosition = transform.position;
-		output.SetInputDevice(srcInput);
+		singleIODevice.SetSourceInputDevice(srcInput);
+		singleIODevice.Initialise();
 	}
 }

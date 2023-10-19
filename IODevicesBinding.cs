@@ -121,17 +121,106 @@ public class IODevicesBinding : MonoBehaviour
 						Debug.Log("NOICE");
 					*/
 
-					
+					/*
 					if (terminalA is SingleInputOutputDeviceMB && terminalB is InputDeviceMB)
 					{
 						Debug.Log("A is SingleInputOutputDeviceMB;    B is InputDeviceMB");
 						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
 					}
+					*/
+
+					/*
+					if (terminalA is SingleInputOutputDeviceMB && terminalB is InputOutputDeviceMB)
+					{
+						Debug.Log("A is SingleInputOutputDeviceMB;    B is InputOutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+					else if (terminalA is InputOutputDeviceMB && terminalB is SingleInputOutputDeviceMB)
+					{
+						Debug.Log("A is InputOutputDeviceMB;    B is SingleInputOutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
 
 					else if (terminalA is OutputDeviceMB && terminalB is InputDeviceMB)
+					{
+						Debug.Log("A is OutputDeviceMB;    B is InputDeviceMB");
 						((OutputDeviceMB)terminalA).SetInputDeviceMB((InputDeviceMB)terminalB);
+					}
 					else if (terminalA is InputDeviceMB && terminalB is OutputDeviceMB)
+					{
+						Debug.Log("A is InputDeviceMB;    B is OutputDeviceMB");
 						((OutputDeviceMB)terminalB).SetInputDeviceMB((InputDeviceMB)terminalA);
+					}
+					*/
+
+					if (terminalA is SingleInputOutputDeviceMB && terminalB is SingleInputOutputDeviceMB)
+					{
+						Debug.Log("A is SingleInputOutputDeviceMB;    B is SingleInputOutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+
+					else if (terminalA is SingleInputOutputDeviceMB && terminalB is InputDeviceMB)
+					{
+						Debug.Log("A is SingleInputOutputDeviceMB;    B is InputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+					else if (terminalA is InputDeviceMB && terminalB is SingleInputOutputDeviceMB)
+					{
+						Debug.Log("A is InputDeviceMB;    B is SingleInputOutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+
+					else if (terminalA is SingleInputOutputDeviceMB && terminalB is OutputDeviceMB)
+					{
+						Debug.Log("A is SingleInputOutputDeviceMB;    B is OutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+					else if (terminalA is OutputDeviceMB && terminalB is SingleInputOutputDeviceMB)
+					{
+						Debug.Log("A is OutputDeviceMB;    B is SingleInputOutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+
+					if (terminalA is MultiInputOutputDeviceMB && terminalB is MultiInputOutputDeviceMB)
+					{
+						Debug.Log("A is MultiInputOutputDeviceMB;    B is MultiInputOutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+
+					else if (terminalA is MultiInputOutputDeviceMB && terminalB is InputDeviceMB)
+					{
+						Debug.Log("A is MultiInputOutputDeviceMB;    B is InputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+					else if (terminalA is InputDeviceMB && terminalB is MultiInputOutputDeviceMB)
+					{
+						Debug.Log("A is InputDeviceMB;    B is MultiInputOutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+
+					else if (terminalA is MultiInputOutputDeviceMB && terminalB is OutputDeviceMB)
+					{
+						Debug.Log("A is MultiInputOutputDeviceMB;    B is OutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+					else if (terminalA is OutputDeviceMB && terminalB is MultiInputOutputDeviceMB)
+					{
+						Debug.Log("A is OutputDeviceMB;    B is MultiInputOutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+
+
+
+					else if (terminalA is InputDeviceMB && terminalB is OutputDeviceMB)
+					{
+						Debug.Log("A is InputDeviceMB;    B is OutputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
+					else if (terminalA is OutputDeviceMB && terminalB is InputDeviceMB)
+					{
+						Debug.Log("A is OutputDeviceMB;    B is InputDeviceMB");
+						//((SingleInputOutputDeviceMB)terminalA).singleIODevice.output.SetInputDevice(((InputDeviceMB)terminalB).inputDevice);
+					}
 				}
 			}
 		}
