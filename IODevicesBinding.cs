@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static InputOutputDevice;
 
 public class IODevicesBinding : MonoBehaviour
 {
@@ -16,30 +15,21 @@ public class IODevicesBinding : MonoBehaviour
 	InputDevice currentSelectedInputDevice = null;
 	OutputDevice currentSelectedOutputDevice = null;
 
-	InputDevice currentSelectedPureInputs = null;
-	OutputDevice currentSelectedPureOutputs = null;
-
 	InputDevice currentAimedInputDevice = null;
 	OutputDevice currentAimedOutputDevice = null;
-
-	InputDevice currentAimedPureInputs = null;
-	OutputDevice currentAimedPureOutputs = null;
 
 
 	[SerializeField] TMP_Text text;
 
-	[SerializeField] RawImage linkIconImg;
+	[SerializeField] RawImage connectIconImg;	// chain (link)
+	[SerializeField] RawImage disconnectIconImg;	// scissors
 
-	[SerializeField] Texture2D linkIconRed;
-	[SerializeField] Texture2D linkIconGreen;
+	[SerializeField] Texture2D connectIconRed;
+	[SerializeField] Texture2D connectIconGreen;
 
 	List<InputDevice> enabledInputDevices;
 	List<OutputDevice> enabledOutputDevices;
 
-	List<OutputDevice> enabledPureOutputs;
-
-	List<OutputDevice> enabledSIOOutputs;
-	List<OutputDevice> enabledMIOOutputs;
 
 	void Awake()
 	{
@@ -49,26 +39,13 @@ public class IODevicesBinding : MonoBehaviour
 			Destroy(this);
 		
 		text.gameObject.SetActive(false);
-		linkIconImg.enabled = false;
+		connectIconImg.enabled = false;
 	}
 
 	private void Start()
 	{
 		enabledInputDevices = InputDevice.allInputDevices.Where(inp => inp.IsUsable).ToList();
-		//Debug.Log(enabledInputDevices.Count);
 		enabledOutputDevices = OutputDevice.allOutputDevices.Where(outp => outp.IsUsable).ToList();
-		//Debug.Log(enabledOutputDevices.Count);
-
-		/*
-		enabledPureOutputs = OutputDevice.allOutputDevices.Where(outp => outp.IsUsable)
-			.Where(outp => ! (outp is IO_OutputDevice)).ToList();
-
-		var enabledIOutputs = OutputDevice.allOutputDevices.Where(outp => outp.IsUsable)
-			.Where(outp => outp is IO_OutputDevice).ToList();
-
-		enabledSIOOutputs = enabledIOutputs.Where(outp => ((IO_OutputDevice)outp).inputOutputDevice is SingleInputOutputDevice).ToList();
-		enabledMIOOutputs = enabledIOutputs.Where(outp => ((IO_OutputDevice)outp).inputOutputDevice is MultiInputOutputDevice).ToList();
-		*/
 	}
 
 
@@ -77,8 +54,8 @@ public class IODevicesBinding : MonoBehaviour
 		float distance = Vector3.Distance(playerCamTf.position, target);
 		Vector3 playerCamToInput = (target - playerCamTf.transform.position).normalized;
 		float dot = Vector3.Dot(playerCamToInput, playerCamTf.forward);
-		float opp = 0.5f;
-		//float opp = 0.3f;
+		//float opp = 0.5f;
+		float opp = 0.15f;
 		float maxAngle = Mathf.Atan(opp / distance);
 		float angle = Mathf.Acos(dot);
 		return angle < maxAngle;
@@ -107,8 +84,8 @@ public class IODevicesBinding : MonoBehaviour
 	}
 
 
-	void UpdateSelectedOutput()	=> currentSelectedOutputDevice = GetAimedOutput();
-	void UpdateSelectedInput() => currentSelectedInputDevice = GetAimedInput();
+	//void UpdateSelectedOutput()	=> currentSelectedOutputDevice = GetAimedOutput();
+	//void UpdateSelectedInput() => currentSelectedInputDevice = GetAimedInput();
 
 	void UpdateAimedInput()	=> currentAimedInputDevice = GetAimedInput();
 	void UpdateAimedOutput() => currentAimedOutputDevice = GetAimedOutput();
@@ -132,7 +109,7 @@ public class IODevicesBinding : MonoBehaviour
 			text.gameObject.SetActive(false);
 	}
 
-	void UpdateAimUI()
+	void UpdateConnectUI()
 	{
 		//UpdateAimText();
 
@@ -140,13 +117,13 @@ public class IODevicesBinding : MonoBehaviour
 		{
 			if (currentAimedInputDevice != null)
 			{
-				if (!linkIconImg.enabled)
-					linkIconImg.enabled = true;
+				if (!connectIconImg.enabled)
+					connectIconImg.enabled = true;
 			}
 			else
 			{
-				if (linkIconImg.enabled)
-					linkIconImg.enabled = false;
+				if (connectIconImg.enabled)
+					connectIconImg.enabled = false;
 			}
 		}
 
@@ -156,14 +133,28 @@ public class IODevicesBinding : MonoBehaviour
 			{				
 				float freq = 2;
 				float val = 1f + 0.2f * Mathf.Sin(Time.time * 2f * Mathf.PI * freq);
-				linkIconImg.transform.localScale = new Vector3(val, val, 1f);
+				connectIconImg.transform.localScale = new Vector3(val, val, 1f);
 
 				if (currentAimedOutputDevice != null)
-					linkIconImg.texture = linkIconGreen;
+					connectIconImg.texture = connectIconGreen;
 				else
-					linkIconImg.texture = linkIconRed;
+					connectIconImg.texture = connectIconRed;
 			}	
 		}
+	}
+
+	void UpdateDisconnectUI()
+	{
+		if (currentAimedOutputDevice != null)
+		{
+			if (currentAimedOutputDevice.connectedInputDevice != null)
+			{
+				if (!disconnectIconImg.enabled)
+					disconnectIconImg.enabled = true;
+			}
+		}
+		else if (disconnectIconImg.enabled)
+			disconnectIconImg.enabled = false;
 	}
 
 
@@ -172,43 +163,37 @@ public class IODevicesBinding : MonoBehaviour
 		UpdateAimedInput();
 		UpdateAimedOutput();
 
-		UpdateAimUI();
+		UpdateConnectUI();
+		UpdateDisconnectUI();
 
 		if (Mouse.current.leftButton.wasPressedThisFrame)	// press on input
 		{
-			//linkIconImg.enabled = true;
 			currentSelectedInputDevice = currentAimedInputDevice;
 		}
 
 		if (Mouse.current.leftButton.wasReleasedThisFrame)	 // release on output
 		{
-			//linkIconImg.enabled = false;
 			currentSelectedOutputDevice = currentAimedOutputDevice;
 
 			if (currentSelectedInputDevice != null && currentSelectedOutputDevice != null)
 			{
-				if (currentAimedOutputDevice is InputOutputDevice.IO_OutputDevice)
-				{
-					var ioOutput = (InputOutputDevice.IO_OutputDevice)currentAimedOutputDevice;
-					if (ioOutput.inputOutputDevice is MultiInputOutputDevice)
-					{
-						var mio = (MultiInputOutputDevice)(ioOutput.inputOutputDevice);
-						OutputDevice newOutput = mio.AddNewOutput();
-						newOutput.SetInputDevice(currentSelectedInputDevice);
-					}
-				}
-				else
-				{
-					currentSelectedOutputDevice.SetInputDevice(currentSelectedInputDevice);
-				}
-				
-				//currentSelectedOutputDevice.SetInputDevice(currentSelectedInputDevice);
-				Debug.Log(currentSelectedOutputDevice);
-				Debug.Log(currentSelectedOutputDevice.connectedInputDevice);
+				currentSelectedOutputDevice.SetInputDevice(currentSelectedInputDevice);
+				//Debug.Log(currentSelectedOutputDevice);
+				//Debug.Log(currentSelectedOutputDevice.connectedInputDevice);
 			}
 
 			currentSelectedInputDevice = null;
 			currentSelectedOutputDevice = null;	
-		}		
+		}
+
+
+		if (Mouse.current.rightButton.wasPressedThisFrame)   // press on output
+		{
+			if (currentAimedOutputDevice != null)
+			{
+				if (currentAimedOutputDevice.connectedInputDevice != null)
+					currentAimedOutputDevice.SetInputDevice(null);
+			}
+		}
 	}
 }

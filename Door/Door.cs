@@ -16,8 +16,8 @@ public class Door : OutputDevice
 		OpenedRotation = closedRot * Quaternion.Euler(0f, -90f, 0f);
 	}
 
-	protected override void Activate() => Open();
-	protected override void Deactivate() => Close();
+	protected override void OnActivate() => Open();
+	protected override void OnDeactivate() => Close();
 
 	void Open()
 	{

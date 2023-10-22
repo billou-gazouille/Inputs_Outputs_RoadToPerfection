@@ -10,6 +10,7 @@ public class ElevatorMB : OutputDeviceMB
 	[SerializeField] float speed;
 	[SerializeField] Transform startPosTf;
 	[SerializeField] Transform endPosTf;
+	[SerializeField] Transform platformTf;
 
 	public override void InitOutputDevice()
 	{
@@ -18,7 +19,7 @@ public class ElevatorMB : OutputDeviceMB
 
 	void Update()
 	{
-		transform.position = elevator.CurrentPosition;
+		platformTf.position = elevator.CurrentPosition;
 		elevator.UpdatePosition();
 	}
 }

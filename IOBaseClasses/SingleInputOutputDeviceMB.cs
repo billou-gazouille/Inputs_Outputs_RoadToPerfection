@@ -14,7 +14,8 @@ public abstract class SingleInputOutputDeviceMB : InputOutputDeviceMB
 
 	public sealed override void InitInputDevice()
 	{
-		singleIODevice.output = new InputOutputDevice.IO_OutputDevice(singleIODevice);
+		singleIODevice.output.Setup(singleIODevice);
+
 		if (outputTf != null)
 			singleIODevice.output.WorldPosition = outputTf.position;
 		else

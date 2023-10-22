@@ -4,10 +4,12 @@ public abstract class InputOutputDevice
 	public sealed class IO_InputDevice : InputDevice { }
 	public sealed class IO_OutputDevice : OutputDevice
 	{
-		public IO_OutputDevice(InputOutputDevice ioDevice) => inputOutputDevice = ioDevice;
-		public InputOutputDevice inputOutputDevice { get; }    // the IO device to which it belongs
-		protected override void Activate() => inputOutputDevice.OnOutputActivated();
-		protected override void Deactivate() => inputOutputDevice.OnOutputDeactivated();
+		public InputOutputDevice inputOutputDevice { get; private set; }    // the IO device to which it belongs
+		protected sealed override void OnActivate() => inputOutputDevice.OnOutputActivated();
+		protected sealed override void OnDeactivate() => inputOutputDevice.OnOutputDeactivated();
+		protected sealed override void BehaviourIfNullInput() => Deactivate(); 
+		//protected sealed override void BehaviourIfNullInput() { UnityEngine.Debug.Log("OH"); }
+		public void Setup(InputOutputDevice ioDevice) => inputOutputDevice = ioDevice;
 	}
 
 	public InputDevice input { get; } = new IO_InputDevice(); // NOT the source input !!

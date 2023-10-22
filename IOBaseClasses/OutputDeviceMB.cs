@@ -19,7 +19,6 @@ public abstract class OutputDeviceMB : MonoBehaviour
 			outputDevice.WorldPosition = outputTf.position;
 		else
 			outputDevice.WorldPosition = transform.position;
-		//Debug.Log($"{name}, outputDevice.WorldPosition: {outputDevice.WorldPosition}", this);
 
 		outputDevice.IsUsable = true;
 
@@ -29,7 +28,7 @@ public abstract class OutputDeviceMB : MonoBehaviour
 	void Start()
 	{
 		if (connectedInputDeviceMB != null)
-			SetInputDeviceMB(connectedInputDeviceMB);
+			outputDevice.SetInputDevice(connectedInputDeviceMB.inputDevice);
 		
 		else
 		{
@@ -37,10 +36,5 @@ public abstract class OutputDeviceMB : MonoBehaviour
 				outputDevice.SetInputDevice(null);
 			// if connectedInputDevice is not null, we want to leave it as such
 		}
-	}
-
-	public void SetInputDeviceMB(InputDeviceMB inputDeviceMB)
-	{
-		outputDevice.SetInputDevice(inputDeviceMB.inputDevice);
 	}
 }

@@ -17,8 +17,8 @@ public abstract class OutputDevice
 
 	public InputDevice connectedInputDevice { get; protected set; }
 
-	protected virtual void Activate() { }
-	protected virtual void Deactivate() { }
+	protected virtual void OnActivate() { }
+	protected virtual void OnDeactivate() { }
 
 	public static event Action<OutputDevice> onActivated;
 	public static event Action<OutputDevice> onDeactivated;
@@ -28,41 +28,41 @@ public abstract class OutputDevice
 
 	public Vector3? WorldPosition { get; set; } = null;
 
-	private void PrivateActivate()
+	protected void Activate()
 	{
 		IsActive = true;
-		Activate();
+		OnActivate();
 		onActivated?.Invoke(this);
 	}
-	private void PrivateDeactivate()
+	protected void Deactivate()
 	{
 		IsActive = false;
-		Deactivate();
+		OnDeactivate();
 		onDeactivated?.Invoke(this);
 	}
 
 	public bool IsActive { get; private set; } = false;
 
-	protected virtual void BehaviourIfNullInput() => PrivateActivate();
+	protected virtual void BehaviourIfNullInput() => Activate();
 	protected virtual void BehaviourIfInput()
 	{
 		if (connectedInputDevice.IsTriggered)
-			PrivateActivate();
+			Activate();
 		else
-			PrivateDeactivate();
+			Deactivate();
 	}
 
 	void Register (InputDevice inputDevice)
 	{
-		inputDevice.onTriggered += PrivateActivate;
-		inputDevice.onUntriggered += PrivateDeactivate;
+		inputDevice.onTriggered += Activate;
+		inputDevice.onUntriggered += Deactivate;
 		onRegisteredInput?.Invoke(this, inputDevice);
 	}
 
 	void Deregister(InputDevice inputDevice)
 	{
-		inputDevice.onTriggered -= PrivateActivate;
-		inputDevice.onUntriggered -= PrivateDeactivate;
+		inputDevice.onTriggered -= Activate;
+		inputDevice.onUntriggered -= Deactivate;
 		onDeregisteredInput?.Invoke(this, inputDevice);
 	}
 

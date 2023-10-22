@@ -3,6 +3,6 @@ using UnityEngine;
 
 public class TestOutput : OutputDevice
 {
-	protected override void Activate() => Debug.Log("Activated !");
-	protected override void Deactivate() => Debug.Log("Deactivated !");
+	protected override void OnActivate() => Debug.Log("Activated !");
+	protected override void OnDeactivate() => Debug.Log("Deactivated !");
 }

@@ -1,12 +1,10 @@
 using UnityEngine;
 
-public class AndGate : MultiInputOutputDevice
+public class AndGate : TwoInputOutputDevice
 {
 	protected override void OnOutputActivated()
 	{
-		Debug.Log("AND: OnOutputActivated");
-		Debug.Log(outputs.Count);
-		Debug.Log(outputs[0].IsActive);
+		//Debug.Log("AND: OnOutputActivated");
 		if (TestAnd())
 			input.Trigger();
 	}
@@ -19,11 +17,6 @@ public class AndGate : MultiInputOutputDevice
 
 	bool TestAnd()
 	{
-		foreach (IO_OutputDevice output in outputs)
-		{
-			if (!output.IsActive)
-				return false;
-		}
-		return true;
+		return outputA.IsActive && outputB.IsActive;
 	}
 }

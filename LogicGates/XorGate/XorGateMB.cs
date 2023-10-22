@@ -1,6 +1,6 @@
 
-public class XorGateMB : MultiInputOutputDeviceMB
+public class XorGateMB : TwoInputOutputDeviceMB
 {
     XorGate xorGate = new XorGate();
-	public override MultiInputOutputDevice multiIODevice => xorGate;
+	public override TwoInputOutputDevice twoIODevice => xorGate;
 }

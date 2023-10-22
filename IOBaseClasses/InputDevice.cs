@@ -8,7 +8,6 @@ public abstract class InputDevice
 	{
 		OnCreate?.Invoke(this);
 		allInputDevices.Add(this);
-		//Debug.Log(this);
 	}
 
 	public bool IsUsable { get; set; } = false;

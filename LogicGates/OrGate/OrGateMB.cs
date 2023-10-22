@@ -1,8 +1,8 @@
 
 using UnityEngine;
 
-public class OrGateMB : MultiInputOutputDeviceMB
+public class OrGateMB : TwoInputOutputDeviceMB
 {
     OrGate orGate = new OrGate();
-	public override MultiInputOutputDevice multiIODevice => orGate;
+	public override TwoInputOutputDevice twoIODevice => orGate;
 }

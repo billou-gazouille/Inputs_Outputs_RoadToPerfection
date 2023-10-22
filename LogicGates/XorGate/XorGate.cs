@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class XorGate : MultiInputOutputDevice
+public class XorGate : TwoInputOutputDevice
 {
 	protected override void OnOutputActivated()
 	{
@@ -21,13 +21,6 @@ public class XorGate : MultiInputOutputDevice
 
 	bool TestXor()
 	{
-		int n_inputsTriggered = 0;
-		foreach (IO_OutputDevice output in outputs)
-		{
-			if (output.IsActive)
-				n_inputsTriggered++;
-		}
-		bool isOdd = n_inputsTriggered % 2 == 1;
-		return isOdd;
+		return outputA.IsActive ^ outputB.IsActive;		// xor
 	}
 }

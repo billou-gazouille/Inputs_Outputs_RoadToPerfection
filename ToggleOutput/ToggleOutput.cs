@@ -19,7 +19,7 @@ public class ToggleOutput : OutputDevice
 	OutputDevice output2;
 	public OutputDevice CurrentOutput { get; private set; }
 
-	protected override void Activate() => ToggleOut();
+	protected override void OnActivate() => ToggleOut();
 
 	void ToggleOut()
 	{

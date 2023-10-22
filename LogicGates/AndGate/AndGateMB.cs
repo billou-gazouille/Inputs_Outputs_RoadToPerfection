@@ -1,8 +1,8 @@
 
 using UnityEngine;
 
-public class AndGateMB : MultiInputOutputDeviceMB
+public class AndGateMB : TwoInputOutputDeviceMB
 {
 	AndGate andGate = new AndGate();
-	public override MultiInputOutputDevice multiIODevice => andGate;
+	public override TwoInputOutputDevice twoIODevice => andGate;
 }

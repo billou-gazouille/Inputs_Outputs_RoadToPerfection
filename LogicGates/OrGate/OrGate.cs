@@ -1,5 +1,5 @@
 
-public class OrGate : MultiInputOutputDevice
+public class OrGate : TwoInputOutputDevice
 {
 	protected override void OnOutputActivated()
 	{
@@ -15,11 +15,6 @@ public class OrGate : MultiInputOutputDevice
 
 	bool TestOr()
 	{
-		foreach (IO_OutputDevice output in outputs)
-		{
-			if (output.IsActive)
-				return true;
-		}
-		return false;
+		return outputA.IsActive || outputB.IsActive;
 	}
 }
