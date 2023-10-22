@@ -3,12 +3,12 @@ public class Delayer : SingleInputOutputDevice
 {	
 	public float Delay { get; private set; }
 
-	protected override void OnSourceInputTriggered()
+	protected override void OnOutputActivated()
 	{
 		Timer.WaitThenDo(Delay, () => input.Trigger());
 	}
 
-	protected override void OnSourceInputUntriggered()
+	protected override void OnOutputDeactivated()
 	{
 		Timer.WaitThenDo(Delay, () => input.Untrigger());
 	}

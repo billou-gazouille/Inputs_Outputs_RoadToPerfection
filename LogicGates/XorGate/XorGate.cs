@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class XorGate : MultiInputOutputDevice
 {
-	protected override void OnSourceInputTriggered()
+	protected override void OnOutputActivated()
 	{
 		if (TestXor() && !input.IsTriggered)
 			input.Trigger();
@@ -11,7 +11,7 @@ public class XorGate : MultiInputOutputDevice
 			input.Untrigger();
 	}
 
-	protected override void OnSourceInputUntriggered()
+	protected override void OnOutputDeactivated()
 	{
 		if (TestXor() && !input.IsTriggered)
 			input.Trigger();
@@ -22,9 +22,9 @@ public class XorGate : MultiInputOutputDevice
 	bool TestXor()
 	{
 		int n_inputsTriggered = 0;
-		foreach (InputDevice inp in SourceInputs)
+		foreach (IO_OutputDevice output in outputs)
 		{
-			if (inp.IsTriggered)
+			if (output.IsActive)
 				n_inputsTriggered++;
 		}
 		bool isOdd = n_inputsTriggered % 2 == 1;

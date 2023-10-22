@@ -19,7 +19,10 @@ public abstract class OutputDeviceMB : MonoBehaviour
 			outputDevice.WorldPosition = outputTf.position;
 		else
 			outputDevice.WorldPosition = transform.position;
-		
+		//Debug.Log($"{name}, outputDevice.WorldPosition: {outputDevice.WorldPosition}", this);
+
+		outputDevice.IsUsable = true;
+
 		InitOutputDevice();
 	}
 

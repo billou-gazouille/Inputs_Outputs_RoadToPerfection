@@ -1,13 +1,13 @@
 
 public class OrGate : MultiInputOutputDevice
 {
-	protected override void OnSourceInputTriggered()
+	protected override void OnOutputActivated()
 	{
 		if (!input.IsTriggered)
 			input.Trigger();
 	}
 
-	protected override void OnSourceInputUntriggered()
+	protected override void OnOutputDeactivated()
 	{
 		if (!TestOr())
 			input.Untrigger();
@@ -15,9 +15,9 @@ public class OrGate : MultiInputOutputDevice
 
 	bool TestOr()
 	{
-		foreach (var inp in SourceInputs)
+		foreach (IO_OutputDevice output in outputs)
 		{
-			if (inp.IsTriggered)
+			if (output.IsActive)
 				return true;
 		}
 		return false;

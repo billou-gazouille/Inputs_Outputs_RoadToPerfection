@@ -3,7 +3,7 @@ public class OneBitMemory : SingleInputOutputDevice
 {
 	public bool State { get; private set; } = false;  // 1 bit
 
-	protected override void OnSourceInputTriggered()
+	protected override void OnOutputActivated()
 	{
 		if (State)
 		{
@@ -17,5 +17,5 @@ public class OneBitMemory : SingleInputOutputDevice
 		}
 	}
 
-	protected override void OnSourceInputUntriggered() { }
+	protected override void OnOutputDeactivated() { }
 }

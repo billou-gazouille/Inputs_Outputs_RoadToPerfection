@@ -1,7 +1,6 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class TimerButtonMB : InputDeviceMB 
 {
@@ -12,22 +11,8 @@ public class TimerButtonMB : InputDeviceMB
 
 	[SerializeField] float delay;
 
-	//void Awake()
-	void Start()
+	public override void InitInputDevice()
 	{
-		//inputDevice = timerButton;
 		timerButton.Init(delay);
-		//timerButton.Init();
 	}
-
-
-	/*
-	void Update()
-	{
-		if (Keyboard.current.eKey.wasPressedThisFrame)
-		{
-			timerButton.Press();
-		}
-	}
-	*/
 }

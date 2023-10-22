@@ -3,6 +3,6 @@ using System;
 
 public class TestIODevice : SingleInputOutputDevice
 {
-	protected override void OnSourceInputTriggered() => input.Trigger();
-	protected override void OnSourceInputUntriggered() => input.Untrigger();
+	protected override void OnOutputActivated() => input.Trigger();
+	protected override void OnOutputDeactivated() => input.Untrigger();
 }

@@ -14,10 +14,13 @@ public abstract class SingleInputOutputDeviceMB : InputOutputDeviceMB
 
 	public sealed override void InitInputDevice()
 	{
+		singleIODevice.output = new InputOutputDevice.IO_OutputDevice(singleIODevice);
 		if (outputTf != null)
 			singleIODevice.output.WorldPosition = outputTf.position;
 		else
 			singleIODevice.output.WorldPosition = transform.position;
+
+		singleIODevice.output.IsUsable = true;
 
 		InitSingleIODevice();
 	}
@@ -25,10 +28,10 @@ public abstract class SingleInputOutputDeviceMB : InputOutputDeviceMB
 
 	void Start()
 	{
-		if (sourceInputDeviceMB == null)
+		if (sourceInputDeviceMB == null || !sourceInputDeviceMB.gameObject.activeSelf)
 			return;
 		InputDevice srcInput = sourceInputDeviceMB.inputDevice;
-		singleIODevice.SetSourceInputDevice(srcInput);
+		singleIODevice.output.SetInputDevice(srcInput);
 		singleIODevice.Initialise();
 	}
 }

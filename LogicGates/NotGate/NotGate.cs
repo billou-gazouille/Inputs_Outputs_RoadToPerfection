@@ -2,12 +2,12 @@
 
 public class NotGate : SingleInputOutputDevice
 {
-	protected override void OnSourceInputTriggered() => input.Untrigger();
-	protected override void OnSourceInputUntriggered() => input.Trigger();
+	protected override void OnOutputActivated() => input.Untrigger();
+	protected override void OnOutputDeactivated() => input.Trigger();
 
 	public override void Initialise()
 	{
-		if (!SourceInput.IsTriggered)
+		if (!output.IsActive)
 			input.Trigger();
 	}
 }

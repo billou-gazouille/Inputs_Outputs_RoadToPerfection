@@ -1,9 +1,20 @@
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class OutputDevice
 {
+	public OutputDevice()
+	{
+		OnCreate?.Invoke(this);
+		allOutputDevices.Add(this);
+	}
+
+	public bool IsUsable { get; set; } = false;
+	public static event Action<OutputDevice> OnCreate;
+	public static readonly List<OutputDevice> allOutputDevices = new List<OutputDevice>();
+
 	public InputDevice connectedInputDevice { get; protected set; }
 
 	protected virtual void Activate() { }
@@ -19,14 +30,14 @@ public abstract class OutputDevice
 
 	private void PrivateActivate()
 	{
-		Activate();
 		IsActive = true;
+		Activate();
 		onActivated?.Invoke(this);
 	}
 	private void PrivateDeactivate()
 	{
-		Deactivate();
 		IsActive = false;
+		Deactivate();
 		onDeactivated?.Invoke(this);
 	}
 

@@ -13,8 +13,7 @@ public abstract class MultiInputOutputDeviceMB : InputOutputDeviceMB
 
 	[SerializeField] Transform outputTf;    // for now, all outputs will be located here
 
-	// map source inputs to internal outputs :
-	//Dictionary<InputDevice, OutputDevice> IOs = new Dictionary<InputDevice, OutputDevice>();
+	Dictionary<OutputDevice, InputDevice> IOs = new Dictionary<OutputDevice, InputDevice>();
 
 	public virtual void InitMultiIODevice() { }
 
@@ -22,9 +21,12 @@ public abstract class MultiInputOutputDeviceMB : InputOutputDeviceMB
 	{
 		foreach (InputDeviceMB srcInputMB in sourceInputDevicesMB)
 		{
-			if (srcInputMB == null)
+			if (srcInputMB == null || !srcInputMB.gameObject.activeSelf)
 				continue;
-			var output = new InputOutputDevice.IO_OutputDevice();
+
+			multiIODevice.OutputsPos = outputTf.position;
+
+			var output = new InputOutputDevice.IO_OutputDevice(multiIODevice);
 
 			if (outputTf != null)
 				output.WorldPosition = outputTf.position;
@@ -32,8 +34,12 @@ public abstract class MultiInputOutputDeviceMB : InputOutputDeviceMB
 				output.WorldPosition = transform.position;
 
 			multiIODevice.outputs.Add(output);
-			//IOs.Add(srcInputMB.inputDevice, output);
-			multiIODevice.IOs.Add(srcInputMB.inputDevice, output);
+			IOs.Add(output, srcInputMB.inputDevice);
+		}
+
+		foreach (OutputDevice output in multiIODevice.outputs)
+		{
+			output.IsUsable = true;
 		}
 
 		InitMultiIODevice();
@@ -43,11 +49,15 @@ public abstract class MultiInputOutputDeviceMB : InputOutputDeviceMB
 	void Start()
 	{
 		List<InputDevice> srcInputs = sourceInputDevicesMB
-			.Where(mb => mb != null)
+			.Where(mb => mb != null && mb.gameObject.activeSelf)
 			.Select(mb => mb.inputDevice)
 			.ToList();
 
-		multiIODevice.SetSourceInputDevices(srcInputs);
+		foreach (OutputDevice output in multiIODevice.outputs)
+		{
+			InputDevice input = IOs[output];
+			output.SetInputDevice(input);
+		}
 		multiIODevice.Initialise();
 	}
 }

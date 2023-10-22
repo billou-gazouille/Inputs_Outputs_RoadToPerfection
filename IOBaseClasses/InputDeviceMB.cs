@@ -20,6 +20,8 @@ public abstract class InputDeviceMB : MonoBehaviour
 			inputDevice.WorldPosition = transform.position;
 		//Debug.Log($"{name}, inputDevice.WorldPosition: {inputDevice.WorldPosition}", this);
 
+		inputDevice.IsUsable = true;
+
 		InitInputDevice();
 	}
 }

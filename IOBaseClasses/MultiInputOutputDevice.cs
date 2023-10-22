@@ -1,24 +1,20 @@
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public abstract class MultiInputOutputDevice : InputOutputDevice
 {
-	public List<InputDevice> SourceInputs { get; protected set; }   // a button for example
 	public List<OutputDevice> outputs { get; } = new List<OutputDevice>();   // intermediate
 
-	// map source inputs to internal outputs :
-	public Dictionary<InputDevice, OutputDevice> IOs = new Dictionary<InputDevice, OutputDevice>();
-
-	public void SetSourceInputDevices(List<InputDevice> srcInputs)
+	public IO_OutputDevice AddNewOutput()
 	{
-		SourceInputs = srcInputs;
-
-		foreach (InputDevice srcInp in SourceInputs)
-		{
-			srcInp.onTriggered += OnSourceInputTriggered;
-			srcInp.onUntriggered += OnSourceInputUntriggered;
-			OutputDevice output = IOs[srcInp];
-			output.SetInputDevice(srcInp);
-		}
+		IO_OutputDevice ioOutput = new IO_OutputDevice(this);
+		ioOutput.WorldPosition = OutputsPos;
+		outputs.Add(ioOutput);
+		return ioOutput;
 	}
+	public void RemoveOutput(OutputDevice output) => outputs.Remove(output);
+
+	public Vector3 OutputsPos { get; set; }
 }
