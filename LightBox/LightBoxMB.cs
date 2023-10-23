@@ -8,15 +8,16 @@ public class LightBoxMB : OutputDeviceMB, ILightBox
 
 	public override OutputDevice outputDevice => lighttt;
 
-	Renderer rend;
+	//Renderer rend;
 
 	[SerializeField] Color color;
 	[SerializeField] float intensity;
+	[SerializeField] Renderer rend;
 
 	public override void InitOutputDevice()
 	{
 		lighttt.Init(this);
-		rend = GetComponent<Renderer>();
+		//rend = GetComponentInChildren<Renderer>();
 		rend.material = new Material(rend.material);
 		rend.material.EnableKeyword("_EMISSION");
 		rend.material.SetColor("_EmissionColor", color * intensity);

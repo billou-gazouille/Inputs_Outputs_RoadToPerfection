@@ -54,8 +54,7 @@ public class IODevicesBinding : MonoBehaviour
 		float distance = Vector3.Distance(playerCamTf.position, target);
 		Vector3 playerCamToInput = (target - playerCamTf.transform.position).normalized;
 		float dot = Vector3.Dot(playerCamToInput, playerCamTf.forward);
-		//float opp = 0.5f;
-		float opp = 0.15f;
+		float opp = 0.15f;	 // fine-tune to an appropriate value
 		float maxAngle = Mathf.Atan(opp / distance);
 		float angle = Mathf.Acos(dot);
 		return angle < maxAngle;
@@ -84,38 +83,16 @@ public class IODevicesBinding : MonoBehaviour
 	}
 
 
-	//void UpdateSelectedOutput()	=> currentSelectedOutputDevice = GetAimedOutput();
-	//void UpdateSelectedInput() => currentSelectedInputDevice = GetAimedInput();
-
 	void UpdateAimedInput()	=> currentAimedInputDevice = GetAimedInput();
 	void UpdateAimedOutput() => currentAimedOutputDevice = GetAimedOutput();
 
 
-	void UpdateAimText()
-	{
-		if (currentAimedInputDevice != null)
-		{
-			if (!text.gameObject.activeSelf)
-				text.gameObject.SetActive(true);
-			text.text = "Input";
-		}
-		else if (currentAimedOutputDevice != null)
-		{
-			if (!text.gameObject.activeSelf)
-				text.gameObject.SetActive(true);
-			text.text = "Output";
-		}
-		else if (text.gameObject.activeSelf)
-			text.gameObject.SetActive(false);
-	}
-
 	void UpdateConnectUI()
 	{
-		//UpdateAimText();
-
-		if (currentSelectedInputDevice == null)
+		if (currentSelectedInputDevice == null || currentSelectedOutputDevice == null)
 		{
-			if (currentAimedInputDevice != null)
+			if (currentAimedInputDevice != null || currentAimedOutputDevice != null ||
+				currentSelectedInputDevice != null || currentSelectedOutputDevice != null)
 			{
 				if (!connectIconImg.enabled)
 					connectIconImg.enabled = true;
@@ -129,16 +106,21 @@ public class IODevicesBinding : MonoBehaviour
 
 		if (Mouse.current.leftButton.isPressed)
 		{
-			if (currentSelectedInputDevice != null)
+			if (currentSelectedInputDevice != null || currentSelectedOutputDevice != null)
 			{				
-				float freq = 2;
-				float val = 1f + 0.2f * Mathf.Sin(Time.time * 2f * Mathf.PI * freq);
-				connectIconImg.transform.localScale = new Vector3(val, val, 1f);
-
-				if (currentAimedOutputDevice != null)
+				if ((currentAimedOutputDevice != null && currentSelectedInputDevice != null) ||
+					(currentAimedInputDevice != null && currentSelectedOutputDevice != null))
+				{
+					float freq = 2;
+					float val = 1f + 0.2f * Mathf.Sin(Time.time * 2f * Mathf.PI * freq);
+					connectIconImg.transform.localScale = new Vector3(val, val, 1f);
 					connectIconImg.texture = connectIconGreen;
+				}
 				else
+				{
+					connectIconImg.transform.localScale = Vector3.one;
 					connectIconImg.texture = connectIconRed;
+				}
 			}	
 		}
 	}
@@ -166,28 +148,28 @@ public class IODevicesBinding : MonoBehaviour
 		UpdateConnectUI();
 		UpdateDisconnectUI();
 
-		if (Mouse.current.leftButton.wasPressedThisFrame)	// press on input
+		if (Mouse.current.leftButton.wasPressedThisFrame)
 		{
 			currentSelectedInputDevice = currentAimedInputDevice;
+			currentSelectedOutputDevice = currentAimedOutputDevice;
 		}
 
-		if (Mouse.current.leftButton.wasReleasedThisFrame)	 // release on output
+		if (Mouse.current.leftButton.wasReleasedThisFrame)
 		{
-			currentSelectedOutputDevice = currentAimedOutputDevice;
+			if (currentSelectedOutputDevice == null)
+				currentSelectedOutputDevice = currentAimedOutputDevice;
+			if (currentSelectedInputDevice == null) 
+				currentSelectedInputDevice = currentAimedInputDevice;
 
 			if (currentSelectedInputDevice != null && currentSelectedOutputDevice != null)
-			{
 				currentSelectedOutputDevice.SetInputDevice(currentSelectedInputDevice);
-				//Debug.Log(currentSelectedOutputDevice);
-				//Debug.Log(currentSelectedOutputDevice.connectedInputDevice);
-			}
 
 			currentSelectedInputDevice = null;
 			currentSelectedOutputDevice = null;	
 		}
 
 
-		if (Mouse.current.rightButton.wasPressedThisFrame)   // press on output
+		if (Mouse.current.rightButton.wasPressedThisFrame)
 		{
 			if (currentAimedOutputDevice != null)
 			{

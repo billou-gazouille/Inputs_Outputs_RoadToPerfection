@@ -7,11 +7,13 @@ public class DoorMB : OutputDeviceMB
 
 	public override OutputDevice outputDevice => door;
 
+	[SerializeField] Transform pivotTf;
+
 	public override void InitOutputDevice()
 	{
 		door.SetClosedRotation(transform.rotation);
-		door.onChangeState += (newRotation) => transform.rotation = newRotation;
+		door.onChangeState += (newRotation) => pivotTf.rotation = newRotation;
 	}
-	
+
 	//void Update() => Debug.Log(door.IsActive);
 }
